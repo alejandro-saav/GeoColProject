@@ -1,0 +1,100 @@
+@Geo_Col_API_HostAddress = http://localhost:5149
+
+GET {{Geo_Col_API_HostAddress}}/departamentos/
+Accept: application/json
+
+### municipios por departamento id
+GET {{Geo_Col_API_HostAddress}}/departamentos/1/municipios
+Accept: application/json
+
+### municipios por nombre de departamento
+GET {{Geo_Col_API_HostAddress}}/departamentos/boyaca/municipios
+Accept: application/json
+
+### get all municipios
+GET {{Geo_Col_API_HostAddress}}/municipios/
+Accept: application/json
+
+### get departamento by id
+GET {{Geo_Col_API_HostAddress}}/departamentos/1
+Accept: application/json
+
+### get municipios by departamento name (case/diacritic-insensitive)
+GET {{Geo_Col_API_HostAddress}}/departamentos/Antioquia/municipios
+Accept: application/json
+
+### get municipio by id
+GET {{Geo_Col_API_HostAddress}}/municipios/1
+Accept: application/json
+
+### get barrios by municipio id
+GET {{Geo_Col_API_HostAddress}}/municipios/2007/barrios
+Accept: application/json
+
+### get corregimientos by municipio id
+GET {{Geo_Col_API_HostAddress}}/municipios/1/corregimientos
+Accept: application/json
+
+### get veredas by municipio id
+GET {{Geo_Col_API_HostAddress}}/municipios/1/veredas
+Accept: application/json
+
+### get centros poblados by municipio id
+GET {{Geo_Col_API_HostAddress}}/municipios/1/centros_poblados
+Accept: application/json
+
+### get all comunas/barrios
+GET {{Geo_Col_API_HostAddress}}/comunas_barrios/
+Accept: application/json
+
+### get comuna/barrio by id
+GET {{Geo_Col_API_HostAddress}}/comunas_barrios/1
+Accept: application/json
+
+### get corregimientos por nombre de municipio
+GET {{Geo_Col_API_HostAddress}}/municipios/popayan/corregimientos
+Accept: application/json
+
+### get barrios por nombre de municipio
+GET {{Geo_Col_API_HostAddress}}/municipios/popayan/barrios
+Accept: application/json
+
+### get veredas por nombre de municipio
+GET {{Geo_Col_API_HostAddress}}/municipios/popayan/veredas
+Accept: application/json
+
+### get all veredas
+GET {{Geo_Col_API_HostAddress}}/veredas/
+Accept: application/json
+
+### get vereda by id
+GET {{Geo_Col_API_HostAddress}}/veredas/1
+Accept: application/json
+
+### search municipio by name
+GET {{Geo_Col_API_HostAddress}}/municipios/search?query=medelin
+Accept: application/json
+
+### search departamento by name
+GET {{Geo_Col_API_HostAddress}}/departamentos/search?query=bo
+Accept: application/json
+
+### search barrio by name
+GET {{Geo_Col_API_HostAddress}}/barrios/search?query=bo
+Accept: application/json
+
+### search corregimiento by name
+GET {{Geo_Col_API_HostAddress}}/corregimientos/search?query=ve
+Accept: application/json
+
+### search centros_poblados by name
+GET {{Geo_Col_API_HostAddress}}/centros_poblados/search?query=san
+Accept: application/json
+
+### search vereda by name
+GET {{Geo_Col_API_HostAddress}}/veredas/search?query=san
+Accept: application/json
+
+### export csv departamentos
+GET {{Geo_Col_API_HostAddress}}/export/departamentos.csv
+Accept: text/csv

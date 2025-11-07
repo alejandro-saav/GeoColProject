@@ -1,0 +1,311 @@
+Geo_Col_API Endpoints Documentation
+
+Base URL variable used in Geo_Col_API.http:
+@Geo_Col_API_HostAddress = http://localhost:5149
+
+================================================================================
+DEPARTAMENTOS (group: /departamentos)
+================================================================================
+
+1. GET /departamentos/
+   Description: Get all departments
+   Returns: List<DepartamentosDto>
+   - Id (int)
+   - Departamento (string)
+
+2. GET /departamentos/{id:int}
+   Description: Get department by id
+   Returns: DepartamentosDto or 404 Not Found
+   - Id (int)
+   - Departamento (string)
+
+3. GET /departamentos/{id:int}/municipios
+   Description: Get all municipalities for a department by department id
+   Returns: MunicipiosPorDepartamentoDto
+   - DepartamentoId (int)
+   - Departamento (string)
+   - Municipios (IEnumerable<MunicipioDto>)
+     * Id (int)
+     * Municipio (string)
+     * LinkMapaMunicipio (string)
+
+4. GET /departamentos/{nombre}/municipios
+   Description: Get all municipalities for a department by department name
+   Notes: Case- and diacritic-insensitive search using ILike + Unaccent
+   Returns: MunicipiosPorDepartamentoDto or 404 Not Found
+   - DepartamentoId (int)
+   - Departamento (string)
+   - Municipios (IEnumerable<MunicipioDto>)
+
+5. GET /departamentos/search?query={query}
+   Description: Hybrid full-text + trigram + accent-insensitive departamento search
+   Parameters:
+   - query (string, required): Departamento name or partial text to search for
+     * Max 100 characters
+     * Only letters, spaces, and hyphens allowed
+   Returns: List<DepartamentosDto> (max 30 results, ordered by relevance) or 404 Not Found
+   - Uses PostgreSQL full-text search, ILIKE, and similarity matching
+
+
+================================================================================
+MUNICIPIOS (group: /municipios)
+================================================================================
+
+1. GET /municipios/{id:int}
+   Description: Get municipality by id
+   Returns: MunicipioDto or 404 Not Found
+   - Id (int)
+   - Municipio (string)
+   - LinkMapaMunicipio (string)
+
+2. GET /municipios/{id:int}/barrios
+   Description: Get all barrios (neighborhoods) for a municipality by municipio id
+   Returns: BarriosPorMunicipioDto or 404 Not Found
+   - MunicipioId (int)
+   - Municipio (string)
+   - Barrios (IEnumerable<BarrioDto>)
+     * Id (int)
+     * NombreBarrio (string)
+     * NombreComuna (string)
+     * NumComuna (int)
+
+3. GET /municipios/{nombre}/barrios
+   Description: Get all barrios for a municipality by municipio name
+   Notes: Case- and diacritic-insensitive search using ILike + Unaccent
+   Returns: BarriosPorMunicipioDto or 404 Not Found
+   - MunicipioId (int)
+   - Municipio (string)
+   - Barrios (IEnumerable<BarrioDto>)
+
+4. GET /municipios/{id:int}/corregimientos
+   Description: Get all corregimientos for a municipality by municipio id
+   Returns: List<CorregimientosPorMunicipioDto> or 404 Not Found
+   - MunicipioId (int)
+   - Municipio (string)
+   - Corregimientos (IEnumerable<CorregimientoDto>)
+     * Id (int)
+     * Corregimiento (string)
+
+5. GET /municipios/{nombre}/corregimientos
+   Description: Get all corregimientos for a municipality by municipio name
+   Notes: Case- and diacritic-insensitive search using ILike + Unaccent
+   Returns: List<CorregimientosPorMunicipioDto> or 404 Not Found
+   - MunicipioId (int)
+   - Municipio (string)
+   - Corregimientos (IEnumerable<CorregimientoDto>)
+
+6. GET /municipios/{id:int}/veredas
+   Description: Get all veredas for a municipality by municipio id
+   Returns: List<VeredasPorMunicipioDto> or 404 Not Found
+   - MunicipioId (int)
+   - Municipio (string)
+   - Veredas (IEnumerable<VeredaDto>)
+     * Id (int)
+     * Vereda (string)
+
+7. GET /municipios/{nombre}/veredas
+   Description: Get all veredas for a municipality by municipio name
+   Notes: Case- and diacritic-insensitive search using ILike + Unaccent
+   Returns: List<VeredasPorMunicipioDto> or 404 Not Found
+   - MunicipioId (int)
+   - Municipio (string)
+   - Veredas (IEnumerable<VeredaDto>)
+
+8. GET /municipios/{id:int}/centros_poblados
+   Description: Get all centros poblados for a municipality by municipio id
+   Returns: List<CentrosPobladosPorMunicipioDto> or 404 Not Found
+   - MunicipioId (int)
+   - Municipio (string)
+   - CentrosPoblados (IEnumerable<CentroPobladoDto>)
+     * Id (int)
+     * CentroPoblado (string)
+     * Tipo (string)
+
+9. GET /municipios/search?query={query}
+   Description: Hybrid full-text + trigram + accent-insensitive municipio search
+   Parameters:
+   - query (string, required): Municipio name or partial text to search for
+     * Max 100 characters
+     * Only letters, spaces, and hyphens allowed
+   Returns: List<MunicipioDetailDto> (max 30 results, ordered by relevance) or 404 Not Found
+   - Id (int)
+   - Municipio (string)
+   - DepartamentoId (int)
+   - Departamento (string)
+   - LinkMapaMunicipio (string)
+   - Uses PostgreSQL full-text search, ILIKE, and similarity matching
+
+
+================================================================================
+COMUNAS Y BARRIOS (groups: /comunas_barrios, /barrios)
+================================================================================
+
+1. GET /comunas_barrios/
+   Description: Get all comunas/barrios
+   Returns: List<BarrioDetailDto>
+   - Id (int)
+   - NombreBarrio (string)
+   - NumComuna (int)
+   - NombreComuna (string)
+   - MunicipioId (int)
+   - DepartamentoId (int)
+
+2. GET /comunas_barrios/{id:int}
+   Description: Get comuna/barrio by id
+   Returns: BarrioDetailDto or 404 Not Found
+   - Id (int)
+   - NombreBarrio (string)
+   - NumComuna (int)
+   - NombreComuna (string)
+   - MunicipioId (int)
+   - DepartamentoId (int)
+
+3. GET /barrios/search?query={query}
+   Description: Hybrid full-text + trigram + accent-insensitive barrio search
+   Parameters:
+   - query (string, required): Barrio name or partial text to search for
+     * Max 100 characters
+     * Only letters, spaces, and hyphens allowed
+   Returns: List<BarrioDto> (max 30 results, ordered by relevance) or 404 Not Found
+   - Id (int)
+   - NombreBarrio (string)
+   - NumComuna (int)
+   - NombreComuna (string)
+   - Uses PostgreSQL full-text search, ILIKE, and similarity matching
+
+
+================================================================================
+CORREGIMIENTOS (group: /corregimientos)
+================================================================================
+
+1. GET /corregimientos/
+   Description: Get all corregimientos
+   Returns: List<CorregimientoDetailDto>
+   - Id (int)
+   - Corregimiento (string)
+   - MunicipioId (int)
+   - Municipio (string)
+
+2. GET /corregimientos/search?query={query}
+   Description: Hybrid full-text + trigram + accent-insensitive corregimiento search
+   Parameters:
+   - query (string, required): Corregimiento name or partial text to search for
+     * Max 100 characters
+     * Only letters, spaces, and hyphens allowed
+   Returns: List<CorregimientoDetailDto> (max 30 results, ordered by relevance) or 404 Not Found
+   - Id (int)
+   - Corregimiento (string)
+   - MunicipioId (int)
+   - Municipio (string)
+   - Uses PostgreSQL full-text search, ILIKE, and similarity matching
+
+
+================================================================================
+VEREDAS (group: /veredas)
+================================================================================
+
+1. GET /veredas/
+   Description: Get all veredas with municipio and corregimiento details
+   Returns: List<VeredaDetailDto>
+   - Id (int)
+   - Vereda (string)
+   - MunicipioId (int)
+   - Municipio (string)
+   - CorregimientoId (int)
+   - Corregimiento (string)
+
+2. GET /veredas/{id:int}
+   Description: Get vereda by id with municipio and corregimiento details
+   Returns: List<VeredaDetailDto> or 404 Not Found
+   - Id (int)
+   - Vereda (string)
+   - MunicipioId (int)
+   - Municipio (string)
+   - CorregimientoId (int)
+   - Corregimiento (string)
+
+3. GET /veredas/search?query={query}
+   Description: Hybrid full-text + trigram + accent-insensitive vereda search
+   Parameters:
+   - query (string, required): Vereda name or partial text to search for
+     * Max 100 characters
+     * Only letters, spaces, and hyphens allowed
+   Returns: List<VeredaDetailDto> (max 30 results, ordered by relevance) or 404 Not Found
+   - Id (int)
+   - Vereda (string)
+   - MunicipioId (int)
+   - Municipio (string)
+   - CorregimientoId (int)
+   - Corregimiento (string)
+   - Uses PostgreSQL full-text search, ILIKE, and similarity matching
+
+
+================================================================================
+CENTROS POBLADOS (group: /centros_poblados)
+================================================================================
+
+1. GET /centros_poblados/
+   Description: Get all centros poblados with tipo and municipio details
+   Returns: List<CentrosPobladosDetailDto>
+   - Id (int)
+   - CentroPoblado (string)
+   - TipoCentroPoblado (string)
+   - MunicipioId (int)
+   - Municipio (string)
+
+2. GET /centros_poblados/{id:int}
+   Description: Get centro poblado by id with tipo and municipio details
+   Returns: CentrosPobladosDetailDto or 404 Not Found
+   - Id (int)
+   - CentroPoblado (string)
+   - TipoCentroPoblado (string)
+   - MunicipioId (int)
+   - Municipio (string)
+
+3. GET /centros_poblados/search?query={query}
+   Description: Hybrid full-text + trigram + accent-insensitive centros poblados search
+   Parameters:
+   - query (string, required): Centro poblado name or partial text to search for
+     * Max 100 characters
+     * Only letters, spaces, and hyphens allowed
+   Returns: List<CentrosPobladosDetailDto> (max 30 results, ordered by relevance) or 404 Not Found
+   - Id (int)
+   - CentroPoblado (string)
+   - TipoCentroPoblado (string)
+   - MunicipioId (int)
+   - Municipio (string)
+   - Uses PostgreSQL full-text search, ILIKE, and similarity matching
+
+
+================================================================================
+REFERENCIAS (group: /referencias)
+================================================================================
+
+No endpoints implemented yet
+
+
+================================================================================
+NOTES
+================================================================================
+
+- OpenAPI is enabled only in Development environment
+- Database: PostgreSQL via Npgsql.EntityFrameworkCore.PostgreSQL
+- Some queries use Unaccent extension - ensure the unaccent extension exists in the database
+- Search endpoints use hybrid approach:
+  * PostgreSQL full-text search (to_tsvector, plainto_tsquery)
+  * ILIKE pattern matching (case-insensitive)
+  * Trigram similarity matching (pg_trgm extension required)
+  * Results are scored and ordered by relevance
+  * Maximum 30 results returned per search
+- Name-based endpoints use EF.Functions.ILike and EF.Functions.Unaccent for 
+  case- and diacritic-insensitive matching
+- All endpoints return JSON format
+
+================================================================================
+KNOWN ISSUES
+================================================================================
+
+- In MunicipioEndpoints.cs, there's a duplicate route at line 177:
+  GET /municipios/{nombre}/veredas that actually returns CentrosPobladosPorMunicipioDto
+  instead of VeredasPorMunicipioDto. This appears to be a copy-paste error.
+  The correct veredas endpoint is at line 133.
