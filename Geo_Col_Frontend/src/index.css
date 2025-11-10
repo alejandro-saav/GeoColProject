@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
+@import "tailwindcss";
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    /*padding: 0;*/
+}
+/* Remove default margin from common elements */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+}
+html {
+    font-size: 16px; /* Defines what 1rem equals */
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+    
+    --primary-yellow: #FFFF00;
+    --primary-blue: #000030;
+    --primary-red: #FF2E2E;
+    --primary-white: #F8FAFC;
+
+    --font-heading: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --font-body: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+    h1, h2, h3 {
+        font-family: var(--font-heading);
+    }
+    body, p {
+        font-family: var(--font-body);
+    }
+    
+    body {
+        background-color: var(--primary-blue);
+        min-height: 100vh; /* Ensure body takes full viewport height */
+        display: flex; /* For overall app layout if using flexbox for main layout */
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+
+    ul,
+    ol {
+        list-style: none;
+    }
+
+    /* Make images easier to work with */
+    img {
+        max-width: 100%;
+        display: block;
+    }
+}
