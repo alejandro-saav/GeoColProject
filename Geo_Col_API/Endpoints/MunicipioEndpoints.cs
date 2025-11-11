@@ -1,6 +1,8 @@
 using Geo_Col_API.Data;
 using Geo_Col_API.DTOs;
+using Geo_Col_API.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 
 
 namespace Geo_Col_API.Endpoints;
@@ -11,235 +13,301 @@ public static class MunicipioEndpoints
     {
         var group = app.MapGroup("/municipios");
 
-        group.MapGet("/", async (GeoDBContext db) => await db.Municipios.Select(m => new MunicipioDto {
-            Id = m.Id,
-            Municipio = m.Nombre,
-            LinkMapaMunicipio = m.LinkMapaMunicipio
-            }).ToListAsync());
+        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache) =>
+        {
+            const string cacheKey = "municipios:all";
+            var municipios = await cache.GetOrSetAsync(cacheKey, async () => await db.Municipios.Select(m => new MunicipioDto
+            {
+                Id = m.Id,
+                Municipio = m.Nombre,
+                LinkMapaMunicipio = m.LinkMapaMunicipio
+            }).ToListAsync(), TimeSpan.FromHours(24));
+            return Results.Ok(municipios);
+        });
 
         group.MapGet("/{id:int}",
-            async (GeoDBContext db, int id) => await db.Municipios.FindAsync(id) is { } municipio
-                ? Results.Ok(new MunicipioDto
-                {
-                    Id = municipio.Id, Municipio = municipio.Nombre, LinkMapaMunicipio = municipio.LinkMapaMunicipio
-                })
-                : Results.NotFound());
+            async (GeoDBContext db, int id, IDistributedCache cache) =>
+            {
+                var cacheKey = $"municipio:{id}";
+                var municipio = await cache.GetOrSetAsync(cacheKey, async () =>
+                    {
+                        var mun =  await db.Municipios.FindAsync(id);
+                        return mun != null ? new MunicipioDto { Id = mun.Id, Municipio = mun.Nombre, LinkMapaMunicipio = mun.LinkMapaMunicipio } : null;
+                    },
+                    TimeSpan.FromHours(25));
+                return municipio != null ? Results.Ok(municipio) : Results.NotFound();
+            });
         
-        group.MapGet("/{id:int}/comunas", async (GeoDBContext db, int id) =>
+        group.MapGet("/{id:int}/comunas", async (GeoDBContext db, int id, IDistributedCache cache) =>
         {
-            var municipio = await db.Municipios.FindAsync(id);
-            if (municipio is null) return Results.NotFound();
-            var dto = new ComunasPorMunicipio
+            var cacheKey = $"municipio:{id}:comunas";
+            var comunas = await cache.GetOrSetAsync(cacheKey, async () =>
             {
-                MunicipioId = id,
-                Municipio = municipio.Nombre,
-                Comunas = await db.ComunaBarrios.Where(cm => cm.MunicipioId == id).Select(cm => new ComunasDto
-                {
-                    Id = cm.Id,
-                    NumeroComuna = cm.NumComuna,
-                    NombreComuna = cm.NombreComuna,
-                }).ToListAsync(),
-            };
-            return Results.Ok(dto);
-        });
-
-        group.MapGet("/{nombre}/barrios", async (GeoDBContext db, string nombre) =>
-        {
-            var municipio = await db.Municipios
-                .FirstOrDefaultAsync(m =>
-                    EF.Functions.ILike(
-                        EF.Functions.Unaccent(m.Nombre),
-                        EF.Functions.Unaccent(nombre.Trim())
-                    ));
-            ;
-            if (municipio is null) return Results.NotFound();
-            var dto = new ComunasPorMunicipio
-            {
-                MunicipioId = municipio.Id,
-                Municipio = municipio.Nombre,
-                Comunas = await db.ComunaBarrios.Where(cm => cm.MunicipioId == municipio.Id).Select(cm => new ComunasDto
-                {
-                    Id = cm.Id,
-                    NumeroComuna = cm.NumComuna,
-                    NombreComuna = cm.NombreComuna,
-                }).ToListAsync(),
-            };
-            return Results.Ok(dto);
-        });
-
-        group.MapGet("/{id:int}/barrios", async (GeoDBContext db, int id) =>
-        {
-            var municipio = await db.Municipios.FindAsync(id);
-            if (municipio is null) return Results.NotFound();
-            var dto = new BarriosPorMunicipioDto
-            {
-                MunicipioId = id,
-                Municipio = municipio.Nombre,
-                Barrios = await db.ComunaBarrios.Where(cm => cm.MunicipioId == id).Select(cm => new BarrioDto
-                {
-                    Id = cm.Id,
-                    NombreBarrio = cm.NombreBarrio,
-                    NombreComuna = cm.NombreComuna,
-                    NumComuna = cm.NumComuna,
-                }).ToListAsync(),
-            };
-            return Results.Ok(dto);
-        });
-
-        group.MapGet("/{nombre}/barrios", async (GeoDBContext db, string nombre) =>
-        {
-            var municipio = await db.Municipios
-                .FirstOrDefaultAsync(m =>
-                    EF.Functions.ILike(
-                        EF.Functions.Unaccent(m.Nombre),
-                        EF.Functions.Unaccent(nombre.Trim())
-                    ));
-            ;
-            if (municipio is null) return Results.NotFound();
-            var dto = new BarriosPorMunicipioDto
-            {
-                MunicipioId = municipio.Id,
-                Municipio = municipio.Nombre,
-                Barrios = await db.ComunaBarrios.Where(cm => cm.MunicipioId == municipio.Id).Select(cm => new BarrioDto
-                {
-                    Id = cm.Id,
-                    NombreBarrio = cm.NombreBarrio,
-                    NombreComuna = cm.NombreComuna,
-                    NumComuna = cm.NumComuna,
-                }).ToListAsync(),
-            };
-            return Results.Ok(dto);
-        });
-
-        group.MapGet("/{id:int}/corregimientos", async (GeoDBContext db, int id) =>
-        {
-            var municipio = await db.Municipios.FindAsync(id);
-            if (municipio is null) return Results.NotFound();
-            var dto = await db.Municipios.Where(m => m.Id == id).Include(m => m.Corregimientos).Select(m =>
-                new CorregimientosPorMunicipioDto
+                var municipio = await db.Municipios.FindAsync(id);
+                if (municipio is null) return null;
+                var dto = new ComunasPorMunicipio
                 {
                     MunicipioId = id,
-                    Municipio = m.Nombre,
-                    Corregimientos = m.Corregimientos.Select(c => new CorregimientoDto
+                    Municipio = municipio.Nombre,
+                    Comunas = await db.ComunaBarrios.Where(cm => cm.MunicipioId == id).Select(cm => new ComunasDto
                     {
-                        Id = c.Id,
-                        Corregimiento = c.Nombre,
-                    }).ToList(),
-                }).ToListAsync();
-            return Results.Ok(dto);
+                        Id = cm.Id,
+                        NumeroComuna = cm.NumComuna,
+                        NombreComuna = cm.NombreComuna,
+                    }).ToListAsync(),
+                };
+                return dto;
+            }, TimeSpan.FromHours(24));
+            return comunas != null ? Results.Ok(comunas) : Results.NotFound();
         });
 
-        group.MapGet("/{nombre}/corregimientos", async (GeoDBContext db, string nombre) =>
+        group.MapGet("/{nombre}/barrios", async (GeoDBContext db, string nombre, IDistributedCache cache) =>
         {
-            var municipio = await db.Municipios
-                .FirstOrDefaultAsync(m =>
-                    EF.Functions.ILike(
-                        EF.Functions.Unaccent(m.Nombre),
-                        EF.Functions.Unaccent(nombre.Trim())
-                    ));
-            ;
-            ;
-            if (municipio is null) return Results.NotFound();
-            var dto = await db.Municipios.Where(m => m.Id == municipio.Id).Include(m => m.Corregimientos).Select(m =>
-                new CorregimientosPorMunicipioDto
+            var normalizedNombre = nombre.Trim().ToLowerInvariant();
+            var cacheKey = $"municipio:nombre:{normalizedNombre}:barrios";
+            var barrios = await cache.GetOrSetAsync(cacheKey, async () =>
+            {
+                var municipio = await db.Municipios
+                    .FirstOrDefaultAsync(m =>
+                        EF.Functions.ILike(
+                            EF.Functions.Unaccent(m.Nombre),
+                            EF.Functions.Unaccent(nombre.Trim())
+                        ));
+                ;
+                if (municipio is null) return null;
+                var barrios = await db.ComunaBarrios.Where(cm => cm.MunicipioId == municipio.Id).Select(cm =>
+                    new BarrioDto
+                    {
+                        Id = cm.Id,
+                        NombreBarrio = cm.NombreBarrio,
+                        NumComuna = cm.NumComuna,
+                        NombreComuna = cm.NombreComuna,
+                    }).ToListAsync();
+                return new BarriosPorMunicipioDto
                 {
                     MunicipioId = municipio.Id,
-                    Municipio = m.Nombre,
-                    Corregimientos = m.Corregimientos.Select(c => new CorregimientoDto
-                    {
-                        Id = c.Id,
-                        Corregimiento = c.Nombre,
-                    }).ToList(),
-                }).ToListAsync();
-            return Results.Ok(dto);
+                    Municipio = municipio.Nombre,
+                    Barrios = barrios
+                };
+            }, TimeSpan.FromHours(24));
+            return barrios != null ? Results.Ok(barrios) : Results.NotFound();
         });
 
-        group.MapGet("/{id:int}/veredas", async (GeoDBContext db, int id) =>
+        group.MapGet("/{id:int}/barrios", async (GeoDBContext db, int id, IDistributedCache cache) =>
         {
-            var municipio = await db.Municipios.FindAsync(id);
-            if (municipio is null) return Results.NotFound();
-            var dto = await db.Municipios.Where(m => m.Id == id).Include(m => m.Veredas).Select(m =>
-                new VeredasPorMunicipioDto
-                {
-                    MunicipioId = id,
-                    Municipio = m.Nombre,
-                    Veredas = m.Veredas.Select(v => new VeredaDto
+            var cacheKey = $"municipio:{id}:barrios";
+            var barrios = await cache.GetOrSetAsync(cacheKey, async () =>
+            {
+                var municipio = await db.Municipios.FindAsync(id);
+                if (municipio is null) return null;
+                var barrios = await db.ComunaBarrios.Where(cm => cm.MunicipioId == id).Select(cm => new BarrioDto
                     {
-                        Id = v.Id,
-                        Vereda = v.Nombre,
-                    }).ToList(),
-                }).ToListAsync();
-            return Results.Ok(dto);
-        });
-
-        group.MapGet("/{nombre}/veredas", async (GeoDBContext db, string nombre) =>
-        {
-            var municipio = await db.Municipios
-                .FirstOrDefaultAsync(m =>
-                    EF.Functions.ILike(
-                        EF.Functions.Unaccent(m.Nombre),
-                        EF.Functions.Unaccent(nombre.Trim())
-                    ));
-            ;
-            ;
-            if (municipio is null) return Results.NotFound();
-            var dto = await db.Municipios.Where(m => m.Id == municipio.Id).Include(m => m.Veredas).Select(m =>
-                new VeredasPorMunicipioDto
+                        Id = cm.Id,
+                        NombreBarrio = cm.NombreBarrio,
+                        NombreComuna = cm.NombreComuna,
+                        NumComuna = cm.NumComuna,
+                    }).ToListAsync();
+                return new BarriosPorMunicipioDto
                 {
                     MunicipioId = municipio.Id,
-                    Municipio = m.Nombre,
-                    Veredas = m.Veredas.Select(v => new VeredaDto
-                    {
-                        Id = v.Id,
-                        Vereda = v.Nombre,
-                    }).ToList(),
-                }).ToListAsync();
-            return Results.Ok(dto);
+                    Municipio = municipio.Nombre,
+                    Barrios = barrios
+                };
+            }, TimeSpan.FromHours(24));
+            return barrios != null ? Results.Ok(barrios) : Results.NotFound();
         });
 
-        group.MapGet("/{id:int}/centros_poblados", async (GeoDBContext db, int id) =>
+        group.MapGet("/{id:int}/corregimientos", async (GeoDBContext db, int id, IDistributedCache cache) =>
         {
-            var municipio = await db.Municipios.FindAsync(id);
-            if (municipio is null) return Results.NotFound();
-            var dto = await db.Municipios.Where(m => m.Id == id).Include(m => m.CentrosPoblados).Select(m =>
-                new CentrosPobladosPorMunicipioDto
+            var cacheKey = $"municipio:{id}:corregimientos";
+            var corregimientos = await cache.GetOrSetAsync(cacheKey, async () =>
+            {
+                var municipio = await db.Municipios.FindAsync(id);
+                if (municipio is null) return null;
+                var corregimientos = await db.Corregimientos.Where(c => c.MunicipioId == municipio.Id).Select(c => new CorregimientoDto
                 {
-                    MunicipioId = id,
-                    Municipio = m.Nombre,
-                    CentrosPoblados = m.CentrosPoblados.Select(cp => new CentroPobladoDto
-                    {
-                        Id = cp.Id,
-                        CentroPoblado = cp.Nombre,
-                        Tipo = cp.TipoCentroPoblado.Nombre
-                    }).ToList(),
+                    Id = c.Id,
+                    Corregimiento = c.Nombre,
                 }).ToListAsync();
-            return Results.Ok(dto);
-        });
 
-        group.MapGet("/{nombre}/centros_poblados", async (GeoDBContext db, string nombre) =>
-        {
-            var municipio = await db.Municipios
-                .FirstOrDefaultAsync(m =>
-                    EF.Functions.ILike(
-                        EF.Functions.Unaccent(m.Nombre),
-                        EF.Functions.Unaccent(nombre.Trim())
-                    ));
-            ;
-            ;
-            if (municipio is null) return Results.NotFound();
-            var dto = await db.Municipios.Where(m => m.Id == municipio.Id).Include(m => m.CentrosPoblados).Select(m =>
-                new CentrosPobladosPorMunicipioDto
+                return new CorregimientosPorMunicipioDto
                 {
                     MunicipioId = municipio.Id,
-                    Municipio = m.Nombre,
-                    CentrosPoblados = m.CentrosPoblados.Select(cp => new CentroPobladoDto
+                    Municipio = municipio.Nombre,
+                    Corregimientos = corregimientos
+                };
+            }, TimeSpan.FromHours(24));
+            return corregimientos != null ? Results.Ok(corregimientos) : Results.NotFound();
+        });
+
+        group.MapGet("/{nombre}/corregimientos", async (GeoDBContext db, string nombre, IDistributedCache cache) =>
+        {
+            var normalizedNombre = nombre.Trim().ToLowerInvariant();
+            var cacheKey = $"municipio:nombre:{normalizedNombre}:corregimientos";
+            var dto = await cache.GetOrSetAsync(cacheKey, async () =>
+            {
+                var municipio = await db.Municipios
+                    .FirstOrDefaultAsync(m =>
+                        EF.Functions.ILike(
+                            EF.Functions.Unaccent(m.Nombre),
+                            EF.Functions.Unaccent(nombre.Trim())
+                        ));
+                
+                if (municipio == null) return null;
+
+                var result = await db.Municipios
+                    .Where(m => m.Id == municipio.Id)
+                    .Include(m => m.Corregimientos)
+                    .Select(m => new CorregimientosPorMunicipioDto
                     {
-                        Id = cp.Id,
-                        CentroPoblado = cp.Nombre,
-                        Tipo = cp.TipoCentroPoblado.Nombre
-                    }).ToList(),
-                }).ToListAsync();
-            return Results.Ok(dto);
+                        MunicipioId = municipio.Id,
+                        Municipio = m.Nombre,
+                        Corregimientos = m.Corregimientos.Select(c => new CorregimientoDto
+                        {
+                            Id = c.Id,
+                            Corregimiento = c.Nombre,
+                        }).ToList(),
+                    })
+                    .FirstOrDefaultAsync();
+
+                return result;
+            }, TimeSpan.FromHours(12));
+            
+            return dto != null ? Results.Ok(dto) : Results.NotFound();
+        });
+
+        group.MapGet("/{id:int}/veredas", async (GeoDBContext db, int id, IDistributedCache cache) =>
+        {
+            var cacheKey = $"municipio:{id}:veredas";
+            var dto = await cache.GetOrSetAsync(cacheKey, async () =>
+            {
+                var municipio = await db.Municipios.FindAsync(id);
+                if (municipio == null) return null;
+
+                var result = await db.Municipios
+                    .Where(m => m.Id == id)
+                    .Include(m => m.Veredas)
+                    .Select(m => new VeredasPorMunicipioDto
+                    {
+                        MunicipioId = id,
+                        Municipio = m.Nombre,
+                        Veredas = m.Veredas.Select(v => new VeredaDto
+                        {
+                            Id = v.Id,
+                            Vereda = v.Nombre,
+                        }).ToList(),
+                    })
+                    .FirstOrDefaultAsync();
+
+                return result;
+            }, TimeSpan.FromHours(12));
+            
+            return dto != null ? Results.Ok(dto) : Results.NotFound();
+        });
+
+        group.MapGet("/{nombre}/veredas", async (GeoDBContext db, string nombre, IDistributedCache cache) =>
+        {
+            var normalizedNombre = nombre.Trim().ToLowerInvariant();
+            var cacheKey = $"municipio:nombre:{normalizedNombre}:veredas";
+            var dto = await cache.GetOrSetAsync(cacheKey, async () =>
+            {
+                var municipio = await db.Municipios
+                    .FirstOrDefaultAsync(m =>
+                        EF.Functions.ILike(
+                            EF.Functions.Unaccent(m.Nombre),
+                            EF.Functions.Unaccent(nombre.Trim())
+                        ));
+                
+                if (municipio == null) return null;
+
+                var result = await db.Municipios
+                    .Where(m => m.Id == municipio.Id)
+                    .Include(m => m.Veredas)
+                    .Select(m => new VeredasPorMunicipioDto
+                    {
+                        MunicipioId = municipio.Id,
+                        Municipio = m.Nombre,
+                        Veredas = m.Veredas.Select(v => new VeredaDto
+                        {
+                            Id = v.Id,
+                            Vereda = v.Nombre,
+                        }).ToList(),
+                    })
+                    .FirstOrDefaultAsync();
+
+                return result;
+            }, TimeSpan.FromHours(12));
+            
+            return dto != null ? Results.Ok(dto) : Results.NotFound();
+        });
+
+        group.MapGet("/{id:int}/centros_poblados", async (GeoDBContext db, int id, IDistributedCache cache) =>
+        {
+            var cacheKey = $"municipio:{id}:centros_poblados";
+            var dto = await cache.GetOrSetAsync(cacheKey, async () =>
+            {
+                var municipio = await db.Municipios.FindAsync(id);
+                if (municipio == null) return null;
+
+                var result = await db.Municipios
+                    .Where(m => m.Id == id)
+                    .Include(m => m.CentrosPoblados)
+                    .ThenInclude(cp => cp.TipoCentroPoblado)
+                    .Select(m => new CentrosPobladosPorMunicipioDto
+                    {
+                        MunicipioId = id,
+                        Municipio = m.Nombre,
+                        CentrosPoblados = m.CentrosPoblados.Select(cp => new CentroPobladoDto
+                        {
+                            Id = cp.Id,
+                            CentroPoblado = cp.Nombre,
+                            Tipo = cp.TipoCentroPoblado.Nombre
+                        }).ToList(),
+                    })
+                    .FirstOrDefaultAsync();
+
+                return result;
+            }, TimeSpan.FromHours(12));
+            
+            return dto != null ? Results.Ok(dto) : Results.NotFound();
+        });
+
+        group.MapGet("/{nombre}/centros_poblados", async (GeoDBContext db, string nombre, IDistributedCache cache) =>
+        {
+            var normalizedNombre = nombre.Trim().ToLowerInvariant();
+            var cacheKey = $"municipio:nombre:{normalizedNombre}:centros_poblados";
+            var dto = await cache.GetOrSetAsync(cacheKey, async () =>
+            {
+                var municipio = await db.Municipios
+                    .FirstOrDefaultAsync(m =>
+                        EF.Functions.ILike(
+                            EF.Functions.Unaccent(m.Nombre),
+                            EF.Functions.Unaccent(nombre.Trim())
+                        ));
+                
+                if (municipio == null) return null;
+
+                var result = await db.Municipios
+                    .Where(m => m.Id == municipio.Id)
+                    .Include(m => m.CentrosPoblados)
+                    .ThenInclude(cp => cp.TipoCentroPoblado)
+                    .Select(m => new CentrosPobladosPorMunicipioDto
+                    {
+                        MunicipioId = municipio.Id,
+                        Municipio = m.Nombre,
+                        CentrosPoblados = m.CentrosPoblados.Select(cp => new CentroPobladoDto
+                        {
+                            Id = cp.Id,
+                            CentroPoblado = cp.Nombre,
+                            Tipo = cp.TipoCentroPoblado.Nombre
+                        }).ToList(),
+                    })
+                    .FirstOrDefaultAsync();
+
+                return result;
+            }, TimeSpan.FromHours(12));
+            
+            return dto != null ? Results.Ok(dto) : Results.NotFound();
         });
 
         group.MapGet("/search", async (GeoDBContext db, string query) =>

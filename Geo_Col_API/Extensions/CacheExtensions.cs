@@ -36,7 +36,8 @@ public static class CacheExtensions
 
         // Cache miss or cache read failed - get from database
         var item = await getItem();
-
+        
+        if (item == null) return item;
         // Try to store in cache (best effort - don't fail if this doesn't work)
         try
         {
