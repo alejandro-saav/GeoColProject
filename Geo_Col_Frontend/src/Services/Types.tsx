@@ -1,73 +1,73 @@
 export interface BarrioDto {
-    Id: number;
-    NombreBarrio: string;
-    NombreComuna: string | null;
-    NumComuna: number | null;
+    id: number;
+    nombreBarrio: string;
+    nombreComuna: string | null;
+    numComuna: number | null;
 }
 
 export interface BarrioDetailDto {
-    Id: number;
-    NombreBarrio: string;
-    NombreComuna: string;
-    NumComuna: number;
-    MunicipioId: number;
-    DepartamentoId: number;
+    id: number;
+    nombreBarrio: string;
+    nombreComuna: string;
+    numComuna: number;
+    municipioId: number;
+    departamentoId: number;
 }
 
 export interface BarriosPorMunicipioDto {
-    MunicipioId: number;
-    Municipio: string;
-    Barrios: BarrioDto[];
+    municipioId: number;
+    municipio: string;
+    barrios: BarrioDto[];
 }
 
 export interface CentroPobladoDto {
-    Id: number;
-    CentroPoblado: string;
-    Tipo: string;
+    id: number;
+    centroPoblado: string;
+    tipo: string;
 }
 
 export interface CentrosPobladosDetailDto {
-    Id: number;
-    CentroPoblado: string;
-    TipoCentroPoblado: string;
-    MunicipioId: number;
-    Municipio: string;
+    id: number;
+    centroPoblado: string;
+    tipoCentroPoblado: string;
+    municipioId: number;
+    municipio: string;
 }
 
 export interface CentrosPobladosPorMunicipioDto {
-    MunicipioId: number;
-    Municipio: string;
-    CentrosPoblados: CentroPobladoDto[];
+    municipioId: number;
+    municipio: string;
+    centrosPoblados: CentroPobladoDto[];
 }
 
 export interface ComunasDto {
-    Id: number;
-    NumeroComuna: number;
-    NombreComuna: string;
+    id: number;
+    numeroComuna: number;
+    nombreComuna: string;
 }
 
 export interface ComunasPorMunicipio {
-    MunicipioId: number;
-    Municipio: string;
-    Comunas: ComunasDto[];
+    municipioId: number;
+    municipio: string;
+    comunas: ComunasDto[];
 }
 
 export interface CorregimientoDto {
-    Id: number;
-    Corregimiento: string;
+    id: number;
+    corregimiento: string;
 }
 
 export interface CorregimientoDetailDto {
-    Id: number;
-    Corregimiento: string;
-    MunicipioId: number;
-    Municipio: string;
+    id: number;
+    corregimiento: string;
+    municipioId: number;
+    municipio: string;
 }
 
 export interface CorregimientosPorMunicipioDto {
-    MunicipioId: number;
-    Municipio: string;
-    Corregimientos: CorregimientoDto[];
+    municipioId: number;
+    municipio: string;
+    corregimientos: CorregimientoDto[];
 }
 
 export interface DepartamentosDto {
@@ -76,49 +76,49 @@ export interface DepartamentosDto {
 }
 
 export interface MunicipioDto {
-    Id: number;
-    Municipio: string;
-    LinkMapaMunicipio: string;
+    id: number;
+    municipio: string;
+    linkMapaMunicipio: string;
 }
 
 export interface MunicipioDetailDto {
-    Id: number;
-    Municipio: string;
-    LinkMapaMunicipio: string | null;
-    DepartamentoId: number;
-    Departamento: string;
+    id: number;
+    municipio: string;
+    linkMapaMunicipio: string | null;
+    departamentoId: number;
+    departamento: string;
 }
 
 export interface MunicipioSearchResult {
-    Id: number;
-    Municipio: string;
-    DepartamentoId: number;
-    LinkMapaMunicipio: string | null;
-    Departamento: string;
+    id: number;
+    municipio: string;
+    departamentoId: number;
+    linkMapaMunicipio: string | null;
+    departamento: string;
 }
 
 export interface MunicipiosPorDepartamentoDto {
-    DepartamentoId: number;
-    Departamento: string;
-    Municipios: MunicipioDto[];
+    departamentoId: number;
+    departamento: string;
+    municipios: MunicipioDto[];
 }
 
 export interface VeredaDto {
-    Id: number;
-    Vereda: string;
+    id: number;
+    vereda: string;
 }
 
 export interface VeredaDetailDto {
-    Id: number;
-    Vereda: string;
-    MunicipioId: number;
-    Municipio: string;
-    CorregimientoId: number;
-    Corregimiento: string;
+    id: number;
+    vereda: string;
+    municipioId: number;
+    municipio: string;
+    corregimientoId: number;
+    corregimiento: string;
 }
 
 export interface VeredasPorMunicipioDto {
-    MunicipioId: number;
-    Municipio: string;
-    Veredas: VeredaDto[];
+    municipioId: number;
+    municipio: string;
+    veredas: VeredaDto[];
 }

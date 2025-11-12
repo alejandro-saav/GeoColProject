@@ -1,5 +1,5 @@
 // services/api.ts
-import type { DepartamentosDto, MunicipioDto } from './Types';
+import type {DepartamentosDto, MunicipiosPorDepartamentoDto} from './Types';
 
 class GeographicApiService {
     private baseUrl: string;
@@ -13,21 +13,18 @@ class GeographicApiService {
         return response.json();
     }
 
-    async getMunicipios(departamentoId?: string): Promise<MunicipioDto[]> {
-        const url = departamentoId
-            ? `${this.baseUrl}/municipios?departamentoId=${departamentoId}`
-            : `${this.baseUrl}/municipios`;
-        const response = await fetch(url);
+    async getMunicipiosPorDepartamento(departamentoId?: number): Promise<MunicipiosPorDepartamentoDto> {
+        const response = await fetch(`${this.baseUrl}/departamentos/${departamentoId}/municipios`);
         return response.json();
     }
 
-    private async fetchData(url: string): Promise<any> {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`API call failed: ${response.statusText}`);
-        }
-        return response.json();
-    }
+    // private async fetchData(url: string): Promise<any> {
+    //     const response = await fetch(url);
+    //     if (!response.ok) {
+    //         throw new Error(`API call failed: ${response.statusText}`);
+    //     }
+    //     return response.json();
+    // }
 }
 
 export const geoApiService = new GeographicApiService(import.meta.env.VITE_API_URL);
