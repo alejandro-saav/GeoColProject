@@ -1,69 +1,49 @@
-import {geoApiService} from "../../Services/Api.tsx";
-import {useEffect, useState} from "react";
-import type {DepartamentosDto} from "../../Services/Types.tsx";
-import DataTable from "../Common/DataTable.tsx";
-
-interface DepartamentoProps {
-    departamentoId?: number;
-}
-
-export default function Departamentos({departamentoId}: DepartamentoProps) {
-    
-    const [departamentos, setDepartamentos] = useState<DepartamentosDto[]>([]);
-    const [municipioId, setMunicipioId] = useState<number | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    
-    function fetchMunicipios(municipioId:number): void {
-        setMunicipioId(municipioId);
-    }
-
-    useEffect(() => {
-        async function fetchDepartamentos(){
-            try {
-                setLoading(true);
-                const deps = await geoApiService.getDepartamentos();
-                setDepartamentos(deps);
-            } catch (error) {
-                console.error("Error fetching departamentos:", error);
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchDepartamentos();
-    },[]);
-    
-    const sortedDepartamentos = departamentos.length > 0 
-        ? [...departamentos].sort((a, b) => a.id - b.id)
-        : [];
-    
-    return (
-        <div className="w-full max-w-md mx-auto p-4">
-            <div className="bg-[#1a1a2e] rounded-lg shadow-2xl overflow-hidden border border-[#2a2a3e]">
-                {/* Header */}
-                <div className="bg-gradient-to-r from-[#000030] to-[#1a1a3e] px-4 py-3 border-b border-[#2a2a3e]">
-                    <h2 className="text-xl font-bold text-[#F8FAFC] font-heading">
-                        Departamentos de Colombia
-                    </h2>
-                    <p className="text-xs text-gray-400 mt-1">
-                        {sortedDepartamentos.length} departamentos disponibles
-                    </p>
-                </div>
-
-                {/* Loading State */}
-                {loading ? (
-                    <div className="p-8 text-center">
-                        <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#FFFF00]"></div>
-                        <p className="text-gray-400 mt-4 text-sm">Cargando departamentos...</p>
-                    </div>
-                ) : sortedDepartamentos.length === 0 ? (
-                    <div className="p-8 text-center">
-                        <p className="text-gray-400 text-sm">No hay departamentos disponibles</p>
-                    </div>
-                ) : (
-                    /* Table Content */
-                    <DataTable headers={["ID", "Departamento"]} data={sortedDepartamentos} onClickHandler={fetchMunicipios}/>
-                )}
-            </div>
-        </div>
-    );
-}
+// import {geoApiService} from "../../Services/Api.tsx";
+// import {useEffect, useState} from "react";
+// import type {DepartamentosDto} from "../../Services/Types.tsx";
+// import DataTable from "../Common/DataTable.tsx";
+//
+// interface DepartamentoProps {
+//     departamentoId?: number;
+// }
+//
+// export default function Departamentos({departamentoId}: DepartamentoProps) {
+//    
+//     const [departamentos, setDepartamentos] = useState<DepartamentosDto[]>([]);
+//     const [municipioId, setMunicipioId] = useState<number | null>(null);
+//     const [loading, setLoading] = useState<boolean>(true);
+//    
+//     function fetchMunicipios(municipioId:number): void {
+//         setMunicipioId(municipioId);
+//     }
+//
+//     useEffect(() => {
+//         async function fetchDepartamentos(){
+//             try {
+//                 setLoading(true);
+//                 const deps = await geoApiService.getDepartamentos();
+//                 setDepartamentos(deps);
+//             } catch (error) {
+//                 console.error("Error fetching departamentos:", error);
+//             } finally {
+//                 setLoading(false);
+//             }
+//         }
+//         fetchDepartamentos();
+//     },[]);
+//    
+//     const sortedDepartamentos = departamentos.length > 0 
+//         ? [...departamentos].sort((a, b) => a.id - b.id)
+//         : [];
+//    
+//     return (
+//        
+//                 {/* Header */}
+//               
+//
+//                 {/* Loading State */}
+//               
+//             </div>
+//         </div>
+//     );
+// }

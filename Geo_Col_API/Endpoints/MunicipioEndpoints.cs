@@ -20,7 +20,7 @@ public static class MunicipioEndpoints
             {
                 Id = m.Id,
                 Municipio = m.Nombre,
-                LinkMapaMunicipio = m.LinkMapaMunicipio
+                // LinkMapaMunicipio = m.LinkMapaMunicipio
             }).ToListAsync(), TimeSpan.FromHours(24));
             return Results.Ok(municipios);
         });
@@ -32,7 +32,11 @@ public static class MunicipioEndpoints
                 var municipio = await cache.GetOrSetAsync(cacheKey, async () =>
                     {
                         var mun =  await db.Municipios.FindAsync(id);
-                        return mun != null ? new MunicipioDto { Id = mun.Id, Municipio = mun.Nombre, LinkMapaMunicipio = mun.LinkMapaMunicipio } : null;
+                        return mun != null ? new MunicipioDto
+                        {
+                            Id = mun.Id, Municipio = mun.Nombre,
+                            // LinkMapaMunicipio = mun.LinkMapaMunicipio 
+                        } : null;
                     },
                     TimeSpan.FromHours(25));
                 return municipio != null ? Results.Ok(municipio) : Results.NotFound();

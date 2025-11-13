@@ -64,7 +64,7 @@ public static class DepartamentoEndpoints
                         {
                             Id = m.Id,
                             Municipio = m.Nombre,
-                            LinkMapaMunicipio = m.LinkMapaMunicipio
+                            // LinkMapaMunicipio = m.LinkMapaMunicipio
                         }).ToListAsync();
 
                     return new MunicipiosPorDepartamentoDto
@@ -104,7 +104,7 @@ public static class DepartamentoEndpoints
                         {
                             Id = m.Id,
                             Municipio = m.Nombre,
-                            LinkMapaMunicipio = m.LinkMapaMunicipio
+                            // LinkMapaMunicipio = m.LinkMapaMunicipio
                         }).ToListAsync();
 
                     return new MunicipiosPorDepartamentoDto
