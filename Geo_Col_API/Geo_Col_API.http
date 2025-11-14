@@ -40,7 +40,7 @@ GET {{Geo_Col_API_HostAddress}}/municipios/1/veredas
 Accept: application/json
 
 ### get centros poblados by municipio id
-GET {{Geo_Col_API_HostAddress}}/municipios/1/centros_poblados
+GET {{Geo_Col_API_HostAddress}}/municipios/1123/centros_poblados
 Accept: application/json
 
 ### get all comunas/barrios

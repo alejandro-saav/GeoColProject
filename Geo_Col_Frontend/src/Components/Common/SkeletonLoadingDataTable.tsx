@@ -17,9 +17,9 @@ export const TableSkeleton: React.FC = () => {
 
                 {/* --- SKELETON HEADER --- */}
                 <div className="bg-gradient-to-r from-[#000030] to-[#1a1a3e] px-4 py-3 border-b border-[#2a2a3e]">
-                    <div className="animate-pulse space-y-2">
+                    <div className="animate-pulse space-y-2 flex flex-col gap-2">
                         {/* Mimics the H2 header */}
-                        <div className="h-6 bg-[#2a2a3e] rounded w-3/5 pb-2"></div>
+                        <div className="h-6 bg-[#2a2a3e] rounded w-3/5"></div>
                         {/* Mimics the P sub-header */}
                         <div className="h-3 bg-[#2a2a3e] rounded w-2/5"></div>
                     </div>
@@ -47,13 +47,10 @@ export const TableSkeleton: React.FC = () => {
                             <tr key={row} className="bg-[#1a1a2e]">
 
                                 {/* 3 Columns */}
-                                <td className="px-3 py-2">
+                                <td className="px-3 py-4">
                                     <div className="animate-pulse h-5 bg-[#2a2a3e] rounded w-full"></div>
                                 </td>
-                                <td className="px-3 py-2">
-                                    <div className="animate-pulse h-5 bg-[#2a2a3e] rounded w-full"></div>
-                                </td>
-                                <td className="px-3 py-2">
+                                <td className="px-3 py-4">
                                     <div className="animate-pulse h-5 bg-[#2a2a3e] rounded w-full"></div>
                                 </td>
 

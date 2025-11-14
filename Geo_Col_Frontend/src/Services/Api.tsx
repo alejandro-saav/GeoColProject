@@ -1,5 +1,8 @@
 // services/api.ts
-import type {DepartamentosDto, MunicipioDto, MunicipiosPorDepartamentoDto} from './Types';
+import type {
+    BarriosPorMunicipioDto, CentrosPobladosPorMunicipioDto,
+    CorregimientosPorMunicipioDto, DepartamentosDto, MunicipioDto, MunicipiosPorDepartamentoDto, VeredasPorMunicipioDto
+} from './Types';
 
 class GeographicApiService {
     private baseUrl: string;
@@ -11,6 +14,7 @@ class GeographicApiService {
     async getDepartamentos(departamentoId?: number): Promise<DepartamentosDto | DepartamentosDto[]> {
         const depsUrl: string = `${departamentoId ? `/departamentos/${departamentoId}` : '/departamentos'}`;
         const response = await fetch(`${this.baseUrl}${depsUrl}`);
+        console.log("RESPONSE:", response);
         return response.json();
     }
 
@@ -23,14 +27,29 @@ class GeographicApiService {
         const response = await fetch(`${this.baseUrl}/municipios/${municipioId}`);
         return response.json();
     }
+    
+    async getComunasBarriosPorMunicipio(municipioId: number): Promise<BarriosPorMunicipioDto> {
+        const response = await fetch(`${this.baseUrl}/municipios/${municipioId}/barrios`);
+        return response.json();
+    }
+    
+    async getCorregimientosPorMunicipio(municipioId:number): Promise<CorregimientosPorMunicipioDto> {
+        const response = await fetch(`${this.baseUrl}/municipios/${municipioId}/corregimientos`);
+        return response.json();
+    }
 
-    // private async fetchData(url: string): Promise<any> {
-    //     const response = await fetch(url);
-    //     if (!response.ok) {
-    //         throw new Error(`API call failed: ${response.statusText}`);
-    //     }
-    //     return response.json();
-    // }
+    async getVeredasPorMunicipio(municipioId:number): Promise<VeredasPorMunicipioDto> {
+        const response = await fetch(`${this.baseUrl}/municipios/${municipioId}/veredas`);
+        return response.json();
+    }
+
+    async getCentrosPobladosPorMunicipio(municipioId:number): Promise<CentrosPobladosPorMunicipioDto> {
+        console.log("WE HERE:)");
+        const response = await fetch(`${this.baseUrl}/municipios/${municipioId}/centros_poblados`);
+        console.log("RESPONSE:", response);
+        return response.json();
+    }
+    
 }
 
 export const geoApiService = new GeographicApiService(import.meta.env.VITE_API_URL);

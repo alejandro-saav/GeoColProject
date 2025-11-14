@@ -1,3 +1,6 @@
+import type {fetchers} from "./Fetchers.tsx";
+import type {TerritorialLevel} from "../Constants/TerritorialLevels.tsx";
+
 export interface BarrioDto {
     id: number;
     nombreBarrio: string;
@@ -122,3 +125,8 @@ export interface VeredasPorMunicipioDto {
     municipio: string;
     veredas: VeredaDto[];
 }
+
+export type FetcherMap = typeof fetchers;
+
+export type DataFor<K extends TerritorialLevel> =
+    Awaited<ReturnType<FetcherMap[K]>>;

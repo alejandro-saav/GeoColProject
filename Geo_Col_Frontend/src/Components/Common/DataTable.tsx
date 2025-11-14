@@ -5,7 +5,7 @@ interface DataTableProps<T> {
     header: string;
     entityName: string;
     data: T[],
-    onClickHandler: Dispatch<SetStateAction<T | null>>;
+    onClickHandler?: Dispatch<SetStateAction<T | null>>;
 }
 export default function DataTable<T extends object>({header, entityName, data, onClickHandler} : DataTableProps<T>) {
     if (data == null) {
@@ -45,7 +45,12 @@ export default function DataTable<T extends object>({header, entityName, data, o
                             {data.map((item:any) => (
                                 <tr
                                     key={item.id}
-                                    className="bg-[#1a1a2e] hover:bg-[#252540] transition-colors duration-150 cursor-pointer" onClick={() => onClickHandler(item)}
+                                    className="bg-[#1a1a2e] hover:bg-[#252540] transition-colors duration-150 cursor-pointer" onClick={() => {
+                                    if (onClickHandler != undefined) {
+                                        onClickHandler(item)
+                                    }
+                                }
+                                }
                                 >
                                     {Object.values(item as Record<string, any>).map((value, j) => (
                                         <td key={j} className="px-3 py-2">
