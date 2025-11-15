@@ -1,19 +1,18 @@
 import {toPascalCase} from "../../Utils/Formatters.tsx";
-import type {Dispatch, SetStateAction} from "react";
-
 interface DataTableProps<T> {
     header: string;
     entityName: string;
     data: T[],
-    onClickHandler?: Dispatch<SetStateAction<T | null>>;
+    onClickHandler?: (item: T) => void;
+    entidadSeleccionada?: Record<string, any> | null;
 }
-export default function DataTable<T extends object>({header, entityName, data, onClickHandler} : DataTableProps<T>) {
+export default function DataTable<T extends object>({header, entityName, data, onClickHandler, entidadSeleccionada} : DataTableProps<T>) {
     if (data == null) {
         return null;
     }
     const contentHeaders: string[] = data.length > 0 ? Object.keys(data[0]) : [];
     return (
-        <div className="w-full max-w-md mx-auto p-4">
+        <div className="w-full max-w-md mx-auto p-2">
             <div className="bg-[#1a1a2e] rounded-lg shadow-2xl overflow-hidden border border-[#2a2a3e]">
         {/*   HEADER     */}
         <div className="bg-gradient-to-r from-[#000030] to-[#1a1a3e] px-4 py-3 border-b border-[#2a2a3e]">
@@ -45,7 +44,7 @@ export default function DataTable<T extends object>({header, entityName, data, o
                             {data.map((item:any) => (
                                 <tr
                                     key={item.id}
-                                    className="bg-[#1a1a2e] hover:bg-[#252540] transition-colors duration-150 cursor-pointer" onClick={() => {
+                                    className={`${entidadSeleccionada === item ? "bg-[#0A0A12]" : "bg-[#1a1a2e]"} hover:bg-[#252540] transition-colors duration-150 cursor-pointer`}  onClick={() => {
                                     if (onClickHandler != undefined) {
                                         onClickHandler(item)
                                     }

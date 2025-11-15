@@ -2,11 +2,11 @@ import {useEffect, useState} from "react";
 import type {DataFor, DepartamentosDto, MunicipioDto, MunicipiosPorDepartamentoDto} from "../Services/Types.tsx";
 import {geoApiService} from "../Services/Api.tsx";
 import DataTable from "../Components/Common/DataTable.tsx";
-import {useLocation} from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import SkeletonLoadingDataTable from "../Components/Common/SkeletonLoadingDataTable.tsx";
 import SeleccionUltimoNivelTerritorial from "../Components/Visualization/SeleccionUltimoNivelTerritorial.tsx";
 import {fetchers} from "../Services/Fetchers.tsx";
-import type {TerritorialLevel} from "../Constants/TerritorialLevels.tsx";
+import {TERRITORIAL_LEVELS, type TerritorialLevel} from "../Constants/TerritorialLevels.tsx";
 import {formatTerritorialLabel} from "../Utils/Formatters.tsx";
 
 export default function HomePage(){
@@ -23,21 +23,44 @@ export default function HomePage(){
     const [loadingMunicipios, setLoadingMunicipios] = useState<boolean>(true);
     const [loadingSubdivision, setLoadingSubdivision] = useState<boolean>(true);
     
-    const loc = useLocation();
-    const path :string[] = loc.pathname.split("/").filter(Boolean);
-    console.log(path);
+    const { depId, munId, subdivision } = useParams();
     
+    const navigate = useNavigate();
+    
+    function handleDepartamentoSeleccionado(departamento: DepartamentosDto):void{
+        setDepartamentoSeleccionado(departamento);
+        setMunicipioSeleccionado(null);
+        setMunicipios([]);
+        setSubdivisionSeleccionada(null);
+        setUltimaDivisionTerritorialData([]);
+        navigate(`/departamentos/${departamento.id}`, { replace: true });
+    }
+    
+    function handleMunicipioSeleccionado(municipio: MunicipioDto):void{
+        setMunicipioSeleccionado(municipio);
+        setSubdivisionSeleccionada(null);
+        setUltimaDivisionTerritorialData([]);
+        navigate(`/departamentos/${departamentoSeleccionado?.id}/municipios/${municipio.id}`);
+    }
+    
+    function handleSubdivisionSeleccionada(subdivision:TerritorialLevel):void{
+        setSubdivisionSeleccionada(subdivision);
+        navigate(`/departamentos/${departamentoSeleccionado?.id}/municipios/${municipioSeleccionado?.id}/${subdivision}`);
+    }
+    // DEPARTAMENTOS FETCHING LOGIC
     useEffect(() => {
         async function fetchDepartamentos(){
             try {
                 setLoadingDepartamentos(true);
-                if (path.length > 1 && (isNaN(Number(path[1])) || Number(path[1]) > 50)) throw new Error("departamento id invalido");
-                const depId : number | undefined = path.length > 1 ? Number(path[1]) : undefined;
-                const deps: DepartamentosDto | DepartamentosDto[] = await geoApiService.getDepartamentos(depId);
-                if (!Array.isArray(deps)) {
-                    setDepartamentoSeleccionado(deps);
+                
+                const deps: DepartamentosDto[] = await geoApiService.getDepartamentos();
+                setDepartamentos(deps);
+                if (depId != undefined || !Number.isNaN(Number(depId))) {
+                    const departamentoEncontrado = deps.find(dp => dp.id === Number(depId));
+                    if (departamentoEncontrado != undefined) {
+                        setDepartamentoSeleccionado(departamentoEncontrado);
+                    }
                 }
-                setDepartamentos(Array.isArray(deps) ? deps : [deps]);
             } catch (error) {
                 console.error("Error fetching departamentos:", error);
             } finally {
@@ -46,20 +69,22 @@ export default function HomePage(){
         }
         fetchDepartamentos();
     },[]);
-    
+
+    // MUNICIPIOS FETCHING LOGIC
     useEffect(() => {
         async function fetchMunicipios(){
             try {
                 setLoadingMunicipios(true);
                 if (!departamentoSeleccionado) return;
-                if (path.length > 3 && (isNaN(Number(path[3])))) throw new Error("municipio id invalido");
-                const munId : number | undefined = path.length > 3 ? Number(path[3]) : undefined;
-                if (munId != undefined) {
-                    const mun: MunicipioDto = await geoApiService.getMunicipio(munId);
-                    setMunicipioSeleccionado(mun);
-                } else {
-                const muns: MunicipioDto | MunicipiosPorDepartamentoDto = await geoApiService.getMunicipiosPorDepartamento(departamentoSeleccionado.id);
+                const muns: MunicipiosPorDepartamentoDto = await geoApiService.getMunicipiosPorDepartamento(departamentoSeleccionado.id);
                     setMunicipios(muns.municipios);
+                    
+                //     CHECK MUNICIPIO ID PARAM
+                if (munId != undefined || !Number.isNaN(Number(munId))) {
+                    const municipioEncontrado = muns.municipios.find(mun => mun.id === Number(munId));
+                    if (municipioEncontrado != undefined) {
+                        setMunicipioSeleccionado(municipioEncontrado);
+                    }
                 }
             } catch (error) {
                 console.error("Error fetching municipios:", error);
@@ -69,16 +94,24 @@ export default function HomePage(){
         }
         fetchMunicipios();
     }, [departamentoSeleccionado])
-    
+
+    // SUBDIVISION FETCHING LOGIC
     useEffect(() => {
         setLoadingSubdivision(true);
+        if (subdivision != undefined && TERRITORIAL_LEVELS.includes(subdivision as any)) {
+            const sub = TERRITORIAL_LEVELS.find(s => s == subdivision);
+            if (sub != undefined) {
+                setSubdivisionSeleccionada(sub);
+            }
+        }
         async function fetchSubdivision(){
             try {
+                console.log("SUBBB", subdivisionSeleccionada);
                 if (subdivisionSeleccionada == null || municipioSeleccionado == null) throw new Error("subdivisionSeleccionada o municipioSeleccionado es null");
-                console.log("SUB:", subdivisionSeleccionada);
+                console.log("ARE WE HERE???");
                 const data = await fetchers[subdivisionSeleccionada](municipioSeleccionado?.id);
-                console.log("DATA:", data);
-                setUltimaDivisionTerritorialData(data);
+                const objectKeys:string[] = Object.keys(data);
+                setUltimaDivisionTerritorialData(data[objectKeys[2]]);
             } catch (error) {
                 console.log("Error fetching ultima subdivision:", error);
             } finally {
@@ -86,18 +119,21 @@ export default function HomePage(){
             }
         }
         fetchSubdivision();
-    }, [subdivisionSeleccionada])
-    console.log(departamentos);
-    console.log(municipios);
+    }, [municipioSeleccionado, subdivisionSeleccionada])
+    
     return(
     <div className="flex">
+        {/* SHOW DEPARTAMENTOS */}
         {loadingDepartamentos ? <SkeletonLoadingDataTable /> : 
-        <DataTable header={"Departamentos de Colombia"} entityName={"Departamentos"} data={departamentos.sort((a, b) => a.id - b.id)} onClickHandler={setDepartamentoSeleccionado} />
+        <DataTable header={"Departamentos de Colombia"} entityName={"Departamentos"} data={departamentos.sort((a, b) => a.id - b.id)}  onClickHandler={handleDepartamentoSeleccionado} entidadSeleccionada={departamentoSeleccionado}/>
         }
+        {/* SHOW MUNICIPIOS */}
         {departamentoSeleccionado != null ? loadingMunicipios ? <SkeletonLoadingDataTable /> :
-        <DataTable header={`Municipios de ${departamentoSeleccionado?.departamento}`} entityName={"Municipios"} data={municipios.sort((a, b) => a.id - b.id)} onClickHandler={setMunicipioSeleccionado} />
+        <DataTable header={`Municipios de ${departamentoSeleccionado?.departamento}`} entityName={"Municipios"} data={municipios.sort((a, b) => a.id - b.id)} onClickHandler={handleMunicipioSeleccionado} entidadSeleccionada={municipioSeleccionado}/>
         : null }
-        {municipioSeleccionado != null ? <SeleccionUltimoNivelTerritorial onClickHandler={setSubdivisionSeleccionada}/> : null}
+        {/* SHOW SUBDIVISIONES OPCIONES */}
+        {municipioSeleccionado != null && !loadingMunicipios? <SeleccionUltimoNivelTerritorial onClickHandler={handleSubdivisionSeleccionada} entidadSeleccionada={subdivisionSeleccionada}/> : null}
+        {/* SHOW SUBDIVISION DATA */}
         {subdivisionSeleccionada != null ? loadingSubdivision ? <SkeletonLoadingDataTable /> : <DataTable header={formatTerritorialLabel(subdivisionSeleccionada)} entityName={formatTerritorialLabel(subdivisionSeleccionada)} data={ultimaDivisionTerritorialData} /> : null}
     </div>
         )

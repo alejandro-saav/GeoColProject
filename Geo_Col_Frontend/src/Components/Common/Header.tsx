@@ -1,6 +1,6 @@
 export default function Header() {
     return (
-        <div className="flex justify-around items-center w-full p-3 shadow-2xs shadow-red-500">
+        <div className="flex justify-around items-center w-full p-3 shadow-2xs">
             <div className="flex-1"></div>
             <div className="flex-1 text-center">
                 <h1 className="text-2xl text-yellow-500">Geo Col Explorer</h1>

@@ -12,7 +12,7 @@ export const TableSkeleton: React.FC = () => {
     const skeletonRows = [1, 2, 3, 4,5,6,7,8,9]; // 4 rows
 
     return (
-        <div className="w-full max-w-md mx-auto p-4">
+        <div className="w-full max-w-md mx-auto p-2">
             <div className="bg-[#1a1a2e] rounded-lg shadow-2xl overflow-hidden border border-[#2a2a3e]">
 
                 {/* --- SKELETON HEADER --- */}

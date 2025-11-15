@@ -11,9 +11,8 @@ class GeographicApiService {
         this.baseUrl = baseUrl;
     }
 
-    async getDepartamentos(departamentoId?: number): Promise<DepartamentosDto | DepartamentosDto[]> {
-        const depsUrl: string = `${departamentoId ? `/departamentos/${departamentoId}` : '/departamentos'}`;
-        const response = await fetch(`${this.baseUrl}${depsUrl}`);
+    async getDepartamentos(): Promise<DepartamentosDto[]> {
+        const response = await fetch(`${this.baseUrl}/departamentos`);
         console.log("RESPONSE:", response);
         return response.json();
     }
@@ -46,6 +45,7 @@ class GeographicApiService {
     async getCentrosPobladosPorMunicipio(municipioId:number): Promise<CentrosPobladosPorMunicipioDto> {
         console.log("WE HERE:)");
         const response = await fetch(`${this.baseUrl}/municipios/${municipioId}/centros_poblados`);
+        console.log("rr:", response.status);
         console.log("RESPONSE:", response);
         return response.json();
     }
