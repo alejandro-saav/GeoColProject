@@ -1,3 +1,4 @@
+import {useMemo} from "react";
 import {toPascalCase} from "../../Utils/Formatters.tsx";
 interface DataTableProps<T> {
     header: string;
@@ -10,7 +11,10 @@ export default function DataTable<T extends object>({header, entityName, data, o
     if (data == null) {
         return null;
     }
-    const contentHeaders: string[] = data.length > 0 ? Object.keys(data[0]) : [];
+    // Memoize headers to avoid recalculating on every render
+    const contentHeaders: string[] = useMemo(() => {
+        return data.length > 0 ? Object.keys(data[0]) : [];
+    }, [data]);
     return (
         <div className="w-full max-w-md mx-auto p-2">
             <div className="bg-[#1a1a2e] rounded-lg shadow-2xl overflow-hidden border border-[#2a2a3e]">

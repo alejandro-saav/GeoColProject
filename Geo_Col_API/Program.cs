@@ -2,8 +2,19 @@ using System.Threading.RateLimiting;
 using Geo_Col_API.Data;
 using Geo_Col_API.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+
+// Configure Serilog before creating the builder
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("logs.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Integrate Serilog with ASP.NET Core logging
+builder.Host.UseSerilog();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

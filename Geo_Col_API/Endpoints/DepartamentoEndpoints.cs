@@ -1,8 +1,10 @@
 using Geo_Col_API.Data;
 using Geo_Col_API.DTOs;
 using Geo_Col_API.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 
 namespace Geo_Col_API.Endpoints;
 
@@ -12,8 +14,9 @@ public static class DepartamentoEndpoints
     {
         var group = app.MapGroup("/departamentos");
 
-        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache) =>
+        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("DepartamentoEndpoints");
             const string cacheKey = "departamentos:all";
             var departamentos = await cache.GetOrSetAsync(
                 cacheKey,
@@ -22,14 +25,15 @@ public static class DepartamentoEndpoints
                     Id = dp.Id,
                     Departamento = dp.Nombre,
                 }).ToListAsync(),
-                TimeSpan.FromHours(24) // Cache for 24 hours
+                TimeSpan.FromHours(24), logger // Cache for 24 hours
             );
             return Results.Ok(departamentos);
         });
 
         group.MapGet("/{id:int}",
-            async (GeoDBContext db, IDistributedCache cache, int id) =>
+            async (GeoDBContext db, IDistributedCache cache, int id, [FromServices] ILoggerFactory loggerFactory) =>
             {
+                var logger = loggerFactory.CreateLogger("DepartamentoEndpoints");
                 var cacheKey = $"departamento:{id}";
                 var departamento = await cache.GetOrSetAsync(
                     cacheKey,
@@ -38,14 +42,15 @@ public static class DepartamentoEndpoints
                         var dep = await db.Departamentos.FindAsync(id);
                         return dep != null ? new DepartamentosDto { Id = dep.Id, Departamento = dep.Nombre } : null;
                     },
-                    TimeSpan.FromHours(24)
+                    TimeSpan.FromHours(24), logger
                 );
 
                 return departamento != null ? Results.Ok(departamento) : Results.NotFound();
             });
 
-        group.MapGet("/{id:int}/municipios", async (GeoDBContext db, IDistributedCache cache, int id) =>
+        group.MapGet("/{id:int}/municipios", async (GeoDBContext db, IDistributedCache cache, int id, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("DepartamentoEndpoints");
             var cacheKey = $"departamento:{id}:municipios";
             var dto = await cache.GetOrSetAsync(
                 cacheKey,
@@ -74,14 +79,15 @@ public static class DepartamentoEndpoints
                         Municipios = municipios
                     };
                 },
-                TimeSpan.FromHours(12) // Cache for 12 hours
+                TimeSpan.FromHours(12), logger // Cache for 12 hours
             );
 
             return dto != null ? Results.Ok(dto) : Results.NotFound();
         });
 
-        group.MapGet("/{nombre}/municipios", async (GeoDBContext db, IDistributedCache cache, string nombre) =>
+        group.MapGet("/{nombre}/municipios", async (GeoDBContext db, IDistributedCache cache, string nombre, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("DepartamentoEndpoints");
             var normalizedNombre = nombre.Trim().ToLowerInvariant();
             var cacheKey = $"departamento:nombre:{normalizedNombre}:municipios";
             
@@ -114,7 +120,7 @@ public static class DepartamentoEndpoints
                         Municipios = municipios
                     };
                 },
-                TimeSpan.FromHours(12)
+                TimeSpan.FromHours(12), logger
             );
 
             return dto != null ? Results.Ok(dto) : Results.NotFound();

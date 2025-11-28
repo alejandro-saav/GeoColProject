@@ -1,8 +1,10 @@
 using Geo_Col_API.Data;
 using Geo_Col_API.DTOs;
 using Geo_Col_API.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 
 namespace Geo_Col_API.Endpoints;
 
@@ -12,8 +14,9 @@ public static class CentroPobladoEndpoints
     {
         var group = app.MapGroup("/centros_poblados");
 
-        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache) =>
+        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("CentroPobladoEndpoints");
             const string cacheKey = "centros_poblados:all";
             var centrosPoblados = await cache.GetOrSetAsync(
                 cacheKey,
@@ -29,7 +32,8 @@ public static class CentroPobladoEndpoints
                         Municipio = cp.Municipio.Nombre,
                     })
                     .ToListAsync(),
-                TimeSpan.FromHours(24)
+                TimeSpan.FromHours(24),
+                logger
             );
             return Results.Ok(centrosPoblados);
         });

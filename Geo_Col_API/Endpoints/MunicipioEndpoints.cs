@@ -1,8 +1,10 @@
 using Geo_Col_API.Data;
 using Geo_Col_API.DTOs;
 using Geo_Col_API.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 
 
 namespace Geo_Col_API.Endpoints;
@@ -13,21 +15,23 @@ public static class MunicipioEndpoints
     {
         var group = app.MapGroup("/municipios");
 
-        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache) =>
+        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
             const string cacheKey = "municipios:all";
             var municipios = await cache.GetOrSetAsync(cacheKey, async () => await db.Municipios.Select(m => new MunicipioDto
             {
                 Id = m.Id,
                 Municipio = m.Nombre,
                 // LinkMapaMunicipio = m.LinkMapaMunicipio
-            }).ToListAsync(), TimeSpan.FromHours(24));
+            }).ToListAsync(), TimeSpan.FromHours(24), logger);
             return Results.Ok(municipios);
         });
 
         group.MapGet("/{id:int}",
-            async (GeoDBContext db, int id, IDistributedCache cache) =>
+            async (GeoDBContext db, int id, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
             {
+                var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
                 var cacheKey = $"municipio:{id}";
                 var municipio = await cache.GetOrSetAsync(cacheKey, async () =>
                     {
@@ -38,12 +42,13 @@ public static class MunicipioEndpoints
                             // LinkMapaMunicipio = mun.LinkMapaMunicipio 
                         } : null;
                     },
-                    TimeSpan.FromHours(25));
+                    TimeSpan.FromHours(25), logger);
                 return municipio != null ? Results.Ok(municipio) : Results.NotFound();
             });
         
-        group.MapGet("/{id:int}/comunas", async (GeoDBContext db, int id, IDistributedCache cache) =>
+        group.MapGet("/{id:int}/comunas", async (GeoDBContext db, int id, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
             var cacheKey = $"municipio:{id}:comunas";
             var comunas = await cache.GetOrSetAsync(cacheKey, async () =>
             {
@@ -61,12 +66,13 @@ public static class MunicipioEndpoints
                     }).ToListAsync(),
                 };
                 return dto;
-            }, TimeSpan.FromHours(24));
+            }, TimeSpan.FromHours(24), logger);
             return comunas != null ? Results.Ok(comunas) : Results.NotFound();
         });
 
-        group.MapGet("/{nombre}/barrios", async (GeoDBContext db, string nombre, IDistributedCache cache) =>
+        group.MapGet("/{nombre}/barrios", async (GeoDBContext db, string nombre, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
             var normalizedNombre = nombre.Trim().ToLowerInvariant();
             var cacheKey = $"municipio:nombre:{normalizedNombre}:barrios";
             var barrios = await cache.GetOrSetAsync(cacheKey, async () =>
@@ -93,12 +99,13 @@ public static class MunicipioEndpoints
                     Municipio = municipio.Nombre,
                     Barrios = barrios
                 };
-            }, TimeSpan.FromHours(24));
+            }, TimeSpan.FromHours(24), logger);
             return barrios != null ? Results.Ok(barrios) : Results.NotFound();
         });
 
-        group.MapGet("/{id:int}/barrios", async (GeoDBContext db, int id, IDistributedCache cache) =>
+        group.MapGet("/{id:int}/barrios", async (GeoDBContext db, int id, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
             var cacheKey = $"municipio:{id}:barrios";
             var barrios = await cache.GetOrSetAsync(cacheKey, async () =>
             {
@@ -117,12 +124,13 @@ public static class MunicipioEndpoints
                     Municipio = municipio.Nombre,
                     Barrios = barrios
                 };
-            }, TimeSpan.FromHours(24));
+            }, TimeSpan.FromHours(24), logger);
             return barrios != null ? Results.Ok(barrios) : Results.NotFound();
         });
 
-        group.MapGet("/{id:int}/corregimientos", async (GeoDBContext db, int id, IDistributedCache cache) =>
+        group.MapGet("/{id:int}/corregimientos", async (GeoDBContext db, int id, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
             var cacheKey = $"municipio:{id}:corregimientos";
             var corregimientos = await cache.GetOrSetAsync(cacheKey, async () =>
             {
@@ -140,12 +148,13 @@ public static class MunicipioEndpoints
                     Municipio = municipio.Nombre,
                     Corregimientos = corregimientos
                 };
-            }, TimeSpan.FromHours(24));
+            }, TimeSpan.FromHours(24), logger);
             return corregimientos != null ? Results.Ok(corregimientos) : Results.NotFound();
         });
 
-        group.MapGet("/{nombre}/corregimientos", async (GeoDBContext db, string nombre, IDistributedCache cache) =>
+        group.MapGet("/{nombre}/corregimientos", async (GeoDBContext db, string nombre, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
             var normalizedNombre = nombre.Trim().ToLowerInvariant();
             var cacheKey = $"municipio:nombre:{normalizedNombre}:corregimientos";
             var dto = await cache.GetOrSetAsync(cacheKey, async () =>
@@ -175,13 +184,14 @@ public static class MunicipioEndpoints
                     .FirstOrDefaultAsync();
 
                 return result;
-            }, TimeSpan.FromHours(12));
+            }, TimeSpan.FromHours(12), logger);
             
             return dto != null ? Results.Ok(dto) : Results.NotFound();
         });
 
-        group.MapGet("/{id:int}/veredas", async (GeoDBContext db, int id, IDistributedCache cache) =>
+        group.MapGet("/{id:int}/veredas", async (GeoDBContext db, int id, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
             var cacheKey = $"municipio:{id}:veredas";
             var dto = await cache.GetOrSetAsync(cacheKey, async () =>
             {
@@ -204,13 +214,14 @@ public static class MunicipioEndpoints
                     .FirstOrDefaultAsync();
 
                 return result;
-            }, TimeSpan.FromHours(12));
+            }, TimeSpan.FromHours(12), logger);
             
             return dto != null ? Results.Ok(dto) : Results.NotFound();
         });
 
-        group.MapGet("/{nombre}/veredas", async (GeoDBContext db, string nombre, IDistributedCache cache) =>
+        group.MapGet("/{nombre}/veredas", async (GeoDBContext db, string nombre, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
             var normalizedNombre = nombre.Trim().ToLowerInvariant();
             var cacheKey = $"municipio:nombre:{normalizedNombre}:veredas";
             var dto = await cache.GetOrSetAsync(cacheKey, async () =>
@@ -240,13 +251,14 @@ public static class MunicipioEndpoints
                     .FirstOrDefaultAsync();
 
                 return result;
-            }, TimeSpan.FromHours(12));
+            }, TimeSpan.FromHours(12), logger);
             
             return dto != null ? Results.Ok(dto) : Results.NotFound();
         });
 
-        group.MapGet("/{id:int}/centros_poblados", async (GeoDBContext db, int id, IDistributedCache cache) =>
+        group.MapGet("/{id:int}/centros_poblados", async (GeoDBContext db, int id, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
             var cacheKey = $"municipio:{id}:centros_poblados";
             var dto = await cache.GetOrSetAsync(cacheKey, async () =>
             {
@@ -271,13 +283,14 @@ public static class MunicipioEndpoints
                     .FirstOrDefaultAsync();
 
                 return result;
-            }, TimeSpan.FromHours(12));
+            }, TimeSpan.FromHours(12), logger);
             
             return dto != null ? Results.Ok(dto) : Results.NotFound();
         });
 
-        group.MapGet("/{nombre}/centros_poblados", async (GeoDBContext db, string nombre, IDistributedCache cache) =>
+        group.MapGet("/{nombre}/centros_poblados", async (GeoDBContext db, string nombre, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("MunicipioEndpoints");
             var normalizedNombre = nombre.Trim().ToLowerInvariant();
             var cacheKey = $"municipio:nombre:{normalizedNombre}:centros_poblados";
             var dto = await cache.GetOrSetAsync(cacheKey, async () =>
@@ -309,7 +322,7 @@ public static class MunicipioEndpoints
                     .FirstOrDefaultAsync();
 
                 return result;
-            }, TimeSpan.FromHours(12));
+            }, TimeSpan.FromHours(12), logger);
             
             return dto != null ? Results.Ok(dto) : Results.NotFound();
         });

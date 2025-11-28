@@ -1,8 +1,10 @@
 using Geo_Col_API.Data;
 using Geo_Col_API.DTOs;
 using Geo_Col_API.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 
 namespace Geo_Col_API.Endpoints;
 
@@ -11,8 +13,9 @@ public static class CorregimientoEndpoints
     public static void MapCorregimientoEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("corregimientos");
-        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache) =>
+        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("CorregimientoEndpoints");
             const string cacheKey = "corregimientos:all";
             var corregimientos = await cache.GetOrSetAsync(
                 cacheKey,
@@ -26,7 +29,8 @@ public static class CorregimientoEndpoints
                         Municipio = c.Municipio.Nombre
                     })
                     .ToListAsync(),
-                TimeSpan.FromHours(24)
+                TimeSpan.FromHours(24),
+                logger
             );
             return Results.Ok(corregimientos);
         });

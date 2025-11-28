@@ -1,8 +1,10 @@
 using Geo_Col_API.Data;
 using Geo_Col_API.DTOs;
 using Geo_Col_API.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 
 namespace Geo_Col_API.Endpoints;
 
@@ -12,8 +14,9 @@ public static class VeredaEndpoints
     {
         var group = app.MapGroup("/veredas");
 
-        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache) =>
+        group.MapGet("/", async (GeoDBContext db, IDistributedCache cache, [FromServices] ILoggerFactory loggerFactory) =>
         {
+            var logger = loggerFactory.CreateLogger("VeredaEndpoints");
             const string cacheKey = "veredas:all";
             var veredas = await cache.GetOrSetAsync(
                 cacheKey,
@@ -30,7 +33,8 @@ public static class VeredaEndpoints
                         Corregimiento = v.Corregimiento.Nombre,
                     })
                     .ToListAsync(),
-                TimeSpan.FromHours(24)
+                TimeSpan.FromHours(24),
+                logger
             );
             return Results.Ok(veredas);
         });

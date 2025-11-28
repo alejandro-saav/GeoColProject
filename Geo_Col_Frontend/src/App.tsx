@@ -1,6 +1,7 @@
 import './App.css'
 import HomePage from "./Pages/HomePage.tsx";
 import NotFound from "./Pages/NotFound.tsx";
+import AboutPage from "./Pages/AboutPage.tsx";
 import Header from "./Components/Common/Header.tsx"
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
@@ -22,6 +23,9 @@ function App() {
                 path="/departamentos/:depId/municipios/:munId/:subdivision"
                 element={<HomePage />}
             />
+
+            <Route path="/sobre" element={<AboutPage />} />
+            <Route path="/about" element={<AboutPage />} />
 
             <Route path="*" element={<NotFound />} />
         </Routes>
