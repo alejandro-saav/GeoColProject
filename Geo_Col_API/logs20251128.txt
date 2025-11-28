@@ -1,0 +1,508 @@
+2025-11-28 10:34:09.393 -05:00 [DBG] Hosting starting
+2025-11-28 10:34:10.348 -05:00 [DBG] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+2025-11-28 10:34:10.379 -05:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2025-11-28 10:34:10.441 -05:00 [INF] Now listening on: http://localhost:5149
+2025-11-28 10:34:10.441 -05:00 [DBG] Loaded hosting startup assembly Geo_Col_API
+2025-11-28 10:34:10.443 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-11-28 10:34:10.447 -05:00 [INF] Hosting environment: Development
+2025-11-28 10:34:10.448 -05:00 [INF] Content root path: /home/nexrox/RiderProjects/Geo_Col_API/Geo_Col_API
+2025-11-28 10:34:10.449 -05:00 [DBG] Hosting started
+2025-11-28 10:34:42.983 -05:00 [DBG] Connection id "0HNHEIEJFOMUG" accepted.
+2025-11-28 10:34:42.986 -05:00 [DBG] Connection id "0HNHEIEJFOMUG" started.
+2025-11-28 10:34:43.040 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/departamentos - null null
+2025-11-28 10:34:43.244 -05:00 [DBG] 1 candidate(s) found for the request path '/departamentos'
+2025-11-28 10:34:43.246 -05:00 [DBG] Request matched endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:34:43.253 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 10:34:43.253 -05:00 [INF] CORS policy execution successful.
+2025-11-28 10:34:43.279 -05:00 [WRN] Failed to determine the https port for redirect.
+2025-11-28 10:34:43.284 -05:00 [INF] Executing endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:34:43.540 -05:00 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2025-11-28 10:34:43.868 -05:00 [DBG] Cache hit for departamentos:all
+2025-11-28 10:34:43.872 -05:00 [INF] Setting HTTP status code 200.
+2025-11-28 10:34:43.874 -05:00 [INF] Writing value of type 'List`1' as Json.
+2025-11-28 10:34:43.888 -05:00 [INF] Executed endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:34:43.892 -05:00 [DBG] Connection id "0HNHEIEJFOMUH" accepted.
+2025-11-28 10:34:43.893 -05:00 [DBG] Connection id "0HNHEIEJFOMUH" started.
+2025-11-28 10:34:43.894 -05:00 [DBG] Connection id "0HNHEIEJFOMUG" completed keep alive response.
+2025-11-28 10:34:43.895 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/departamentos - null null
+2025-11-28 10:34:43.899 -05:00 [DBG] 1 candidate(s) found for the request path '/departamentos'
+2025-11-28 10:34:43.900 -05:00 [DBG] Request matched endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:34:43.902 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/departamentos - 200 null application/json; charset=utf-8 863.3566ms
+2025-11-28 10:34:43.904 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 10:34:43.938 -05:00 [INF] CORS policy execution successful.
+2025-11-28 10:34:43.939 -05:00 [INF] Executing endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:34:43.977 -05:00 [DBG] Cache hit for departamentos:all
+2025-11-28 10:34:43.979 -05:00 [INF] Setting HTTP status code 200.
+2025-11-28 10:34:43.982 -05:00 [INF] Writing value of type 'List`1' as Json.
+2025-11-28 10:34:43.983 -05:00 [INF] Executed endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:34:43.984 -05:00 [DBG] Connection id "0HNHEIEJFOMUH" completed keep alive response.
+2025-11-28 10:34:43.984 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/departamentos - 200 null application/json; charset=utf-8 89.7089ms
+2025-11-28 10:36:54.479 -05:00 [DBG] Connection id "0HNHEIEJFOMUG" disconnecting.
+2025-11-28 10:36:54.485 -05:00 [DBG] Connection id "0HNHEIEJFOMUG" stopped.
+2025-11-28 10:36:54.505 -05:00 [DBG] Connection id "0HNHEIEJFOMUG" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-11-28 10:36:55.477 -05:00 [DBG] Connection id "0HNHEIEJFOMUH" disconnecting.
+2025-11-28 10:36:55.477 -05:00 [DBG] Connection id "0HNHEIEJFOMUH" stopped.
+2025-11-28 10:36:55.478 -05:00 [DBG] Connection id "0HNHEIEJFOMUH" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-11-28 10:45:02.048 -05:00 [DBG] Connection id "0HNHEIEJFOMUI" accepted.
+2025-11-28 10:45:02.048 -05:00 [DBG] Connection id "0HNHEIEJFOMUI" started.
+2025-11-28 10:45:02.049 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/departamentos - null null
+2025-11-28 10:45:02.050 -05:00 [DBG] 1 candidate(s) found for the request path '/departamentos'
+2025-11-28 10:45:02.051 -05:00 [DBG] Request matched endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:45:02.052 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 10:45:02.052 -05:00 [INF] CORS policy execution successful.
+2025-11-28 10:45:02.053 -05:00 [INF] Executing endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:45:02.063 -05:00 [DBG] Cache hit for departamentos:all
+2025-11-28 10:45:02.064 -05:00 [INF] Setting HTTP status code 200.
+2025-11-28 10:45:02.064 -05:00 [INF] Writing value of type 'List`1' as Json.
+2025-11-28 10:45:02.065 -05:00 [INF] Executed endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:45:02.066 -05:00 [DBG] Connection id "0HNHEIEJFOMUI" completed keep alive response.
+2025-11-28 10:45:02.067 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/departamentos - 200 null application/json; charset=utf-8 16.808ms
+2025-11-28 10:45:02.070 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/departamentos - null null
+2025-11-28 10:45:02.070 -05:00 [DBG] 1 candidate(s) found for the request path '/departamentos'
+2025-11-28 10:45:02.071 -05:00 [DBG] Request matched endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:45:02.071 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 10:45:02.071 -05:00 [INF] CORS policy execution successful.
+2025-11-28 10:45:02.071 -05:00 [INF] Executing endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:45:02.074 -05:00 [DBG] Cache hit for departamentos:all
+2025-11-28 10:45:02.074 -05:00 [INF] Setting HTTP status code 200.
+2025-11-28 10:45:02.074 -05:00 [INF] Writing value of type 'List`1' as Json.
+2025-11-28 10:45:02.075 -05:00 [INF] Executed endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:45:02.075 -05:00 [DBG] Connection id "0HNHEIEJFOMUI" completed keep alive response.
+2025-11-28 10:45:02.075 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/departamentos - 200 null application/json; charset=utf-8 5.0843ms
+2025-11-28 10:47:13.610 -05:00 [DBG] Connection id "0HNHEIEJFOMUI" disconnecting.
+2025-11-28 10:47:13.611 -05:00 [DBG] Connection id "0HNHEIEJFOMUI" stopped.
+2025-11-28 10:47:13.611 -05:00 [DBG] Connection id "0HNHEIEJFOMUI" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-11-28 10:52:51.077 -05:00 [DBG] Connection id "0HNHEIEJFOMUJ" accepted.
+2025-11-28 10:52:51.084 -05:00 [DBG] Connection id "0HNHEIEJFOMUJ" started.
+2025-11-28 10:52:51.089 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/departamentos - null null
+2025-11-28 10:52:51.100 -05:00 [DBG] 1 candidate(s) found for the request path '/departamentos'
+2025-11-28 10:52:51.104 -05:00 [DBG] Request matched endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:52:51.106 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 10:52:51.109 -05:00 [INF] CORS policy execution successful.
+2025-11-28 10:52:51.112 -05:00 [INF] Executing endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:52:51.134 -05:00 [DBG] Cache hit for departamentos:all
+2025-11-28 10:52:51.138 -05:00 [INF] Setting HTTP status code 200.
+2025-11-28 10:52:51.139 -05:00 [INF] Writing value of type 'List`1' as Json.
+2025-11-28 10:52:51.140 -05:00 [INF] Executed endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:52:51.145 -05:00 [DBG] Connection id "0HNHEIEJFOMUJ" completed keep alive response.
+2025-11-28 10:52:51.146 -05:00 [DBG] Connection id "0HNHEIEJFOMUK" accepted.
+2025-11-28 10:52:51.147 -05:00 [DBG] Connection id "0HNHEIEJFOMUK" started.
+2025-11-28 10:52:51.147 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/departamentos - 200 null application/json; charset=utf-8 57.8445ms
+2025-11-28 10:52:51.153 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/departamentos - null null
+2025-11-28 10:52:51.153 -05:00 [DBG] 1 candidate(s) found for the request path '/departamentos'
+2025-11-28 10:52:51.154 -05:00 [DBG] Request matched endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:52:51.156 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 10:52:51.156 -05:00 [INF] CORS policy execution successful.
+2025-11-28 10:52:51.156 -05:00 [INF] Executing endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:52:51.163 -05:00 [DBG] Cache hit for departamentos:all
+2025-11-28 10:52:51.163 -05:00 [INF] Setting HTTP status code 200.
+2025-11-28 10:52:51.163 -05:00 [INF] Writing value of type 'List`1' as Json.
+2025-11-28 10:52:51.168 -05:00 [INF] Executed endpoint 'HTTP: GET /departamentos/'
+2025-11-28 10:52:51.168 -05:00 [DBG] Connection id "0HNHEIEJFOMUK" completed keep alive response.
+2025-11-28 10:52:51.168 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/departamentos - 200 null application/json; charset=utf-8 14.9273ms
+2025-11-28 10:55:02.712 -05:00 [DBG] Connection id "0HNHEIEJFOMUJ" disconnecting.
+2025-11-28 10:55:02.713 -05:00 [DBG] Connection id "0HNHEIEJFOMUJ" stopped.
+2025-11-28 10:55:02.712 -05:00 [DBG] Connection id "0HNHEIEJFOMUK" disconnecting.
+2025-11-28 10:55:02.715 -05:00 [DBG] Connection id "0HNHEIEJFOMUK" stopped.
+2025-11-28 10:55:02.715 -05:00 [DBG] Connection id "0HNHEIEJFOMUJ" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-11-28 10:55:02.716 -05:00 [DBG] Connection id "0HNHEIEJFOMUK" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-11-28 11:16:17.790 -05:00 [DBG] Connection id "0HNHEIEJFOMUL" accepted.
+2025-11-28 11:16:17.792 -05:00 [DBG] Connection id "0HNHEIEJFOMUL" started.
+2025-11-28 11:16:17.794 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/departamentos - null null
+2025-11-28 11:16:17.799 -05:00 [DBG] 1 candidate(s) found for the request path '/departamentos'
+2025-11-28 11:16:17.800 -05:00 [DBG] Request matched endpoint 'HTTP: GET /departamentos/'
+2025-11-28 11:16:17.802 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 11:16:17.803 -05:00 [INF] CORS policy execution successful.
+2025-11-28 11:16:17.804 -05:00 [INF] Executing endpoint 'HTTP: GET /departamentos/'
+2025-11-28 11:16:17.811 -05:00 [DBG] Cache hit for departamentos:all
+2025-11-28 11:16:17.812 -05:00 [INF] Setting HTTP status code 200.
+2025-11-28 11:16:17.816 -05:00 [INF] Writing value of type 'List`1' as Json.
+2025-11-28 11:16:17.816 -05:00 [INF] Executed endpoint 'HTTP: GET /departamentos/'
+2025-11-28 11:16:17.816 -05:00 [DBG] Connection id "0HNHEIEJFOMUL" completed keep alive response.
+2025-11-28 11:16:17.816 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/departamentos - 200 null application/json; charset=utf-8 22.8447ms
+2025-11-28 11:16:17.822 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/departamentos - null null
+2025-11-28 11:16:17.825 -05:00 [DBG] 1 candidate(s) found for the request path '/departamentos'
+2025-11-28 11:16:17.825 -05:00 [DBG] Request matched endpoint 'HTTP: GET /departamentos/'
+2025-11-28 11:16:17.825 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 11:16:17.825 -05:00 [INF] CORS policy execution successful.
+2025-11-28 11:16:17.826 -05:00 [INF] Executing endpoint 'HTTP: GET /departamentos/'
+2025-11-28 11:16:17.828 -05:00 [DBG] Cache hit for departamentos:all
+2025-11-28 11:16:17.828 -05:00 [INF] Setting HTTP status code 200.
+2025-11-28 11:16:17.828 -05:00 [INF] Writing value of type 'List`1' as Json.
+2025-11-28 11:16:17.828 -05:00 [INF] Executed endpoint 'HTTP: GET /departamentos/'
+2025-11-28 11:16:17.829 -05:00 [DBG] Connection id "0HNHEIEJFOMUL" completed keep alive response.
+2025-11-28 11:16:17.830 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/departamentos - 200 null application/json; charset=utf-8 7.2917ms
+2025-11-28 11:16:19.101 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/departamentos/1/municipios - null null
+2025-11-28 11:16:19.108 -05:00 [DBG] 2 candidate(s) found for the request path '/departamentos/1/municipios'
+2025-11-28 11:16:19.134 -05:00 [DBG] Endpoint 'HTTP: GET /departamentos/{id:int}/municipios' with route pattern '/departamentos/{id:int}/municipios' is valid for the request path '/departamentos/1/municipios'
+2025-11-28 11:16:19.134 -05:00 [DBG] Endpoint 'HTTP: GET /departamentos/{nombre}/municipios' with route pattern '/departamentos/{nombre}/municipios' is valid for the request path '/departamentos/1/municipios'
+2025-11-28 11:16:19.136 -05:00 [DBG] Request matched endpoint 'HTTP: GET /departamentos/{id:int}/municipios'
+2025-11-28 11:16:19.139 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 11:16:19.139 -05:00 [INF] CORS policy execution successful.
+2025-11-28 11:16:19.140 -05:00 [INF] Executing endpoint 'HTTP: GET /departamentos/{id:int}/municipios'
+2025-11-28 11:16:19.157 -05:00 [DBG] Cache null for departamento:1:municipios
+2025-11-28 11:16:20.790 -05:00 [DBG] Entity Framework Core 9.0.10 initialized 'GeoDBContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:9.0.4+fd2380957bee5cd86f336466af36b08c0163f1a5' with options: None
+2025-11-28 11:16:20.893 -05:00 [DBG] Compiling query expression: 
+'DbSet<Departamento>()
+    .Where(d => d.Id == __id_0)
+    .Select(d => d.Nombre)
+    .FirstOrDefault()'
+2025-11-28 11:16:21.231 -05:00 [DBG] Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<string>(
+    asyncEnumerable: SingleQueryingEnumerable.Create<string>(
+        relationalQueryContext: (RelationalQueryContext)queryContext, 
+        relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> 0
+            SELECT TOP(1) d.nombre
+            FROM departamento AS d
+            WHERE d.id == @__id_0) | Resolver: c => new RelationalCommandCache(
+            c.Dependencies.MemoryCache, 
+            c.RelationalDependencies.QuerySqlGeneratorFactory, 
+            c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+            Projection Mapping:
+                EmptyProjectionMember -> 0
+            SELECT TOP(1) d.nombre
+            FROM departamento AS d
+            WHERE d.id == @__id_0, 
+            False, 
+            new HashSet<string>(
+                new string[]{ }, 
+                StringComparer.Ordinal
+            )
+        )].GetRelationalCommandTemplate(parameters), 
+        readerColumns: null, 
+        shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+        {
+            string value1;
+            value1 = dataReader.GetString(0);
+            return value1;
+        }, 
+        contextType: Geo_Col_API.Data.GeoDBContext, 
+        standAloneStateManager: False, 
+        detailedErrorsEnabled: False, 
+        threadSafetyChecksEnabled: True), 
+    cancellationToken: queryContext.CancellationToken)'
+2025-11-28 11:16:21.286 -05:00 [DBG] Creating DbConnection.
+2025-11-28 11:16:21.336 -05:00 [DBG] Created DbConnection. (49ms).
+2025-11-28 11:16:21.341 -05:00 [DBG] Opening connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 11:16:21.657 -05:00 [DBG] Opened connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 11:16:21.674 -05:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-11-28 11:16:21.683 -05:00 [DBG] Created DbCommand for 'ExecuteReader' (5ms).
+2025-11-28 11:16:21.694 -05:00 [DBG] Initialized DbCommand for 'ExecuteReader' (21ms).
+2025-11-28 11:16:21.706 -05:00 [DBG] Executing DbCommand [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d.nombre
+FROM departamento AS d
+WHERE d.id = @__id_0
+LIMIT 1
+2025-11-28 11:16:21.839 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d.nombre
+FROM departamento AS d
+WHERE d.id = @__id_0
+LIMIT 1
+2025-11-28 11:16:21.879 -05:00 [DBG] Closing data reader to 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 11:16:21.896 -05:00 [DBG] A data reader for 'geo_colDB' on server 'tcp://localhost:5432' is being disposed after spending 42ms reading results.
+2025-11-28 11:16:21.904 -05:00 [DBG] Closing connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 11:16:21.913 -05:00 [DBG] Closed connection to database 'geo_colDB' on server 'tcp://localhost:5432' (8ms).
+2025-11-28 11:16:21.928 -05:00 [DBG] Compiling query expression: 
+'DbSet<Municipio>()
+    .Where(m => m.DepartamentoId == __id_0)
+    .Select(m => new MunicipioDto{ 
+        Id = m.Id, 
+        Municipio = m.Nombre 
+    }
+    )'
+2025-11-28 11:16:21.942 -05:00 [DBG] Generated query execution expression: 
+'queryContext => SingleQueryingEnumerable.Create<MunicipioDto>(
+    relationalQueryContext: (RelationalQueryContext)queryContext, 
+    relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            Id -> 0
+            Municipio -> 1
+        SELECT m.id AS Id, m.nombre AS Municipio
+        FROM municipio AS m
+        WHERE m.departamento_id == @__id_0) | Resolver: c => new RelationalCommandCache(
+        c.Dependencies.MemoryCache, 
+        c.RelationalDependencies.QuerySqlGeneratorFactory, 
+        c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+        Projection Mapping:
+            Id -> 0
+            Municipio -> 1
+        SELECT m.id AS Id, m.nombre AS Municipio
+        FROM municipio AS m
+        WHERE m.departamento_id == @__id_0, 
+        False, 
+        new HashSet<string>(
+            new string[]{ }, 
+            StringComparer.Ordinal
+        )
+    )].GetRelationalCommandTemplate(parameters), 
+    readerColumns: null, 
+    shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+    {
+        int? value1;
+        string value2;
+        value1 = (int?)dataReader.GetInt32(0);
+        value2 = dataReader.GetString(1);
+        return new MunicipioDto{ 
+            Id = (int)value1, 
+            Municipio = value2 
+        }
+        ;
+    }, 
+    contextType: Geo_Col_API.Data.GeoDBContext, 
+    standAloneStateManager: False, 
+    detailedErrorsEnabled: False, 
+    threadSafetyChecksEnabled: True)'
+2025-11-28 11:16:21.945 -05:00 [DBG] Opening connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 11:16:21.946 -05:00 [DBG] Opened connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 11:16:21.947 -05:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-11-28 11:16:21.947 -05:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-11-28 11:16:21.947 -05:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-11-28 11:16:21.948 -05:00 [DBG] Executing DbCommand [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT m.id AS "Id", m.nombre AS "Municipio"
+FROM municipio AS m
+WHERE m.departamento_id = @__id_0
+2025-11-28 11:16:21.965 -05:00 [INF] Executed DbCommand (17ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT m.id AS "Id", m.nombre AS "Municipio"
+FROM municipio AS m
+WHERE m.departamento_id = @__id_0
+2025-11-28 11:16:21.971 -05:00 [DBG] Closing data reader to 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 11:16:21.972 -05:00 [DBG] A data reader for 'geo_colDB' on server 'tcp://localhost:5432' is being disposed after spending 6ms reading results.
+2025-11-28 11:16:21.973 -05:00 [DBG] Closing connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 11:16:21.973 -05:00 [DBG] Closed connection to database 'geo_colDB' on server 'tcp://localhost:5432' (0ms).
+2025-11-28 11:16:21.997 -05:00 [DBG] Successfully wrote Redis key departamento:1:municipios
+2025-11-28 11:16:21.997 -05:00 [INF] Setting HTTP status code 200.
+2025-11-28 11:16:22.000 -05:00 [INF] Writing value of type 'MunicipiosPorDepartamentoDto' as Json.
+2025-11-28 11:16:22.000 -05:00 [INF] Executed endpoint 'HTTP: GET /departamentos/{id:int}/municipios'
+2025-11-28 11:16:22.001 -05:00 [DBG] Connection id "0HNHEIEJFOMUL" completed keep alive response.
+2025-11-28 11:16:22.009 -05:00 [DBG] 'GeoDBContext' disposed.
+2025-11-28 11:16:22.016 -05:00 [DBG] Disposing connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 11:16:22.023 -05:00 [DBG] Disposed connection to database 'geo_colDB' on server 'tcp://localhost:5432' (3ms).
+2025-11-28 11:16:22.028 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/departamentos/1/municipios - 200 null application/json; charset=utf-8 2926.942ms
+2025-11-28 11:18:33.044 -05:00 [DBG] Connection id "0HNHEIEJFOMUL" disconnecting.
+2025-11-28 11:18:33.045 -05:00 [DBG] Connection id "0HNHEIEJFOMUL" stopped.
+2025-11-28 11:18:33.046 -05:00 [DBG] Connection id "0HNHEIEJFOMUL" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-11-28 12:00:34.002 -05:00 [DBG] Connection id "0HNHEIEJFOMUM" accepted.
+2025-11-28 12:00:34.003 -05:00 [DBG] Connection id "0HNHEIEJFOMUM" started.
+2025-11-28 12:00:34.003 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/export/departamentos.csv - null null
+2025-11-28 12:00:34.010 -05:00 [DBG] 1 candidate(s) found for the request path '/export/departamentos.csv'
+2025-11-28 12:00:34.010 -05:00 [DBG] Request matched endpoint 'HTTP: GET /export/departamentos.csv'
+2025-11-28 12:00:34.011 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 12:00:34.011 -05:00 [INF] CORS policy execution successful.
+2025-11-28 12:00:34.011 -05:00 [INF] Executing endpoint 'HTTP: GET /export/departamentos.csv'
+2025-11-28 12:00:34.084 -05:00 [DBG] Entity Framework Core 9.0.10 initialized 'GeoDBContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:9.0.4+fd2380957bee5cd86f336466af36b08c0163f1a5' with options: None
+2025-11-28 12:00:34.090 -05:00 [DBG] Compiling query expression: 
+'DbSet<Departamento>()
+    .OrderBy(d => d.Id)
+    .Skip(__p_0)
+    .Take(__p_1)
+    .Select(d => new { 
+        Id = d.Id, 
+        Nombre = d.Nombre
+     })'
+2025-11-28 12:00:34.101 -05:00 [DBG] Generated query execution expression: 
+'queryContext => SingleQueryingEnumerable.Create<<>f__AnonymousType0<int, string>>(
+    relationalQueryContext: (RelationalQueryContext)queryContext, 
+    relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            Id -> 0
+            Nombre -> 1
+        SELECT d.id AS Id, d.nombre AS Nombre
+        FROM departamento AS d
+        ORDER BY d.id ASC
+        OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY) | Resolver: c => new RelationalCommandCache(
+        c.Dependencies.MemoryCache, 
+        c.RelationalDependencies.QuerySqlGeneratorFactory, 
+        c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+        Projection Mapping:
+            Id -> 0
+            Nombre -> 1
+        SELECT d.id AS Id, d.nombre AS Nombre
+        FROM departamento AS d
+        ORDER BY d.id ASC
+        OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY, 
+        False, 
+        new HashSet<string>(
+            new string[]{ }, 
+            StringComparer.Ordinal
+        )
+    )].GetRelationalCommandTemplate(parameters), 
+    readerColumns: null, 
+    shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+    {
+        int? value1;
+        string value2;
+        value1 = (int?)dataReader.GetInt32(0);
+        value2 = dataReader.GetString(1);
+        return new { 
+            Id = (int)value1, 
+            Nombre = value2
+         };
+    }, 
+    contextType: Geo_Col_API.Data.GeoDBContext, 
+    standAloneStateManager: False, 
+    detailedErrorsEnabled: False, 
+    threadSafetyChecksEnabled: True)'
+2025-11-28 12:00:34.103 -05:00 [DBG] Creating DbConnection.
+2025-11-28 12:00:34.104 -05:00 [DBG] Created DbConnection. (1ms).
+2025-11-28 12:00:34.104 -05:00 [DBG] Opening connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:00:34.203 -05:00 [DBG] Opened connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:00:34.203 -05:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-11-28 12:00:34.204 -05:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-11-28 12:00:34.204 -05:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-11-28 12:00:34.204 -05:00 [DBG] Executing DbCommand [Parameters=[@__p_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d.id AS "Id", d.nombre AS "Nombre"
+FROM departamento AS d
+ORDER BY d.id
+LIMIT @__p_1 OFFSET @__p_0
+2025-11-28 12:00:34.224 -05:00 [INF] Executed DbCommand (20ms) [Parameters=[@__p_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d.id AS "Id", d.nombre AS "Nombre"
+FROM departamento AS d
+ORDER BY d.id
+LIMIT @__p_1 OFFSET @__p_0
+2025-11-28 12:00:34.225 -05:00 [DBG] Closing data reader to 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:00:34.226 -05:00 [DBG] A data reader for 'geo_colDB' on server 'tcp://localhost:5432' is being disposed after spending 1ms reading results.
+2025-11-28 12:00:34.227 -05:00 [DBG] Closing connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:00:34.227 -05:00 [DBG] Closed connection to database 'geo_colDB' on server 'tcp://localhost:5432' (0ms).
+2025-11-28 12:00:34.230 -05:00 [DBG] Compiling query expression: 
+'DbSet<Departamento>()
+    .OrderBy(d => d.Id)
+    .Skip(__p_0)
+    .Take(__p_0)
+    .Select(d => new { 
+        Id = d.Id, 
+        Nombre = d.Nombre
+     })'
+2025-11-28 12:00:34.237 -05:00 [DBG] Generated query execution expression: 
+'queryContext => SingleQueryingEnumerable.Create<<>f__AnonymousType0<int, string>>(
+    relationalQueryContext: (RelationalQueryContext)queryContext, 
+    relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            Id -> 0
+            Nombre -> 1
+        SELECT d.id AS Id, d.nombre AS Nombre
+        FROM departamento AS d
+        ORDER BY d.id ASC
+        OFFSET @__p_0 ROWS FETCH NEXT @__p_0 ROWS ONLY) | Resolver: c => new RelationalCommandCache(
+        c.Dependencies.MemoryCache, 
+        c.RelationalDependencies.QuerySqlGeneratorFactory, 
+        c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+        Projection Mapping:
+            Id -> 0
+            Nombre -> 1
+        SELECT d.id AS Id, d.nombre AS Nombre
+        FROM departamento AS d
+        ORDER BY d.id ASC
+        OFFSET @__p_0 ROWS FETCH NEXT @__p_0 ROWS ONLY, 
+        False, 
+        new HashSet<string>(
+            new string[]{ }, 
+            StringComparer.Ordinal
+        )
+    )].GetRelationalCommandTemplate(parameters), 
+    readerColumns: null, 
+    shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+    {
+        int? value1;
+        string value2;
+        value1 = (int?)dataReader.GetInt32(0);
+        value2 = dataReader.GetString(1);
+        return new { 
+            Id = (int)value1, 
+            Nombre = value2
+         };
+    }, 
+    contextType: Geo_Col_API.Data.GeoDBContext, 
+    standAloneStateManager: False, 
+    detailedErrorsEnabled: False, 
+    threadSafetyChecksEnabled: True)'
+2025-11-28 12:00:34.240 -05:00 [DBG] Opening connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:00:34.240 -05:00 [DBG] Opened connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:00:34.241 -05:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-11-28 12:00:34.241 -05:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-11-28 12:00:34.242 -05:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-11-28 12:00:34.242 -05:00 [DBG] Executing DbCommand [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d.id AS "Id", d.nombre AS "Nombre"
+FROM departamento AS d
+ORDER BY d.id
+LIMIT @__p_0 OFFSET @__p_0
+2025-11-28 12:00:34.243 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d.id AS "Id", d.nombre AS "Nombre"
+FROM departamento AS d
+ORDER BY d.id
+LIMIT @__p_0 OFFSET @__p_0
+2025-11-28 12:00:34.244 -05:00 [DBG] Closing data reader to 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:00:34.244 -05:00 [DBG] A data reader for 'geo_colDB' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results.
+2025-11-28 12:00:34.245 -05:00 [DBG] Closing connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:00:34.245 -05:00 [DBG] Closed connection to database 'geo_colDB' on server 'tcp://localhost:5432' (0ms).
+2025-11-28 12:00:34.248 -05:00 [INF] Executed endpoint 'HTTP: GET /export/departamentos.csv'
+2025-11-28 12:00:34.248 -05:00 [DBG] Connection id "0HNHEIEJFOMUM" completed keep alive response.
+2025-11-28 12:00:34.249 -05:00 [DBG] 'GeoDBContext' disposed.
+2025-11-28 12:00:34.249 -05:00 [DBG] Disposing connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:00:34.249 -05:00 [DBG] Disposed connection to database 'geo_colDB' on server 'tcp://localhost:5432' (0ms).
+2025-11-28 12:00:34.249 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/export/departamentos.csv - 200 null text/csv; charset=utf-8 245.711ms
+2025-11-28 12:02:45.528 -05:00 [DBG] Connection id "0HNHEIEJFOMUM" disconnecting.
+2025-11-28 12:02:45.529 -05:00 [DBG] Connection id "0HNHEIEJFOMUM" stopped.
+2025-11-28 12:02:45.529 -05:00 [DBG] Connection id "0HNHEIEJFOMUM" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-11-28 12:05:11.784 -05:00 [DBG] Connection id "0HNHEIEJFOMUN" accepted.
+2025-11-28 12:05:11.784 -05:00 [DBG] Connection id "0HNHEIEJFOMUN" started.
+2025-11-28 12:05:11.787 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5149/export/departamentos.csv - null null
+2025-11-28 12:05:11.800 -05:00 [DBG] 1 candidate(s) found for the request path '/export/departamentos.csv'
+2025-11-28 12:05:11.801 -05:00 [DBG] Request matched endpoint 'HTTP: GET /export/departamentos.csv'
+2025-11-28 12:05:11.801 -05:00 [DBG] The request has an origin header: 'http://localhost:5173'.
+2025-11-28 12:05:11.802 -05:00 [INF] CORS policy execution successful.
+2025-11-28 12:05:11.803 -05:00 [INF] Executing endpoint 'HTTP: GET /export/departamentos.csv'
+2025-11-28 12:05:11.841 -05:00 [DBG] Entity Framework Core 9.0.10 initialized 'GeoDBContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:9.0.4+fd2380957bee5cd86f336466af36b08c0163f1a5' with options: None
+2025-11-28 12:05:11.851 -05:00 [DBG] Creating DbConnection.
+2025-11-28 12:05:11.851 -05:00 [DBG] Created DbConnection. (0ms).
+2025-11-28 12:05:11.851 -05:00 [DBG] Opening connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:05:11.851 -05:00 [DBG] Opened connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:05:11.852 -05:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-11-28 12:05:11.852 -05:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-11-28 12:05:11.852 -05:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-11-28 12:05:11.852 -05:00 [DBG] Executing DbCommand [Parameters=[@__p_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d.id AS "Id", d.nombre AS "Nombre"
+FROM departamento AS d
+ORDER BY d.id
+LIMIT @__p_1 OFFSET @__p_0
+2025-11-28 12:05:11.854 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d.id AS "Id", d.nombre AS "Nombre"
+FROM departamento AS d
+ORDER BY d.id
+LIMIT @__p_1 OFFSET @__p_0
+2025-11-28 12:05:11.855 -05:00 [DBG] Closing data reader to 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:05:11.855 -05:00 [DBG] A data reader for 'geo_colDB' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results.
+2025-11-28 12:05:11.856 -05:00 [DBG] Closing connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:05:11.856 -05:00 [DBG] Closed connection to database 'geo_colDB' on server 'tcp://localhost:5432' (0ms).
+2025-11-28 12:05:11.858 -05:00 [DBG] Opening connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:05:11.858 -05:00 [DBG] Opened connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:05:11.858 -05:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2025-11-28 12:05:11.858 -05:00 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2025-11-28 12:05:11.858 -05:00 [DBG] Initialized DbCommand for 'ExecuteReader' (0ms).
+2025-11-28 12:05:11.859 -05:00 [DBG] Executing DbCommand [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d.id AS "Id", d.nombre AS "Nombre"
+FROM departamento AS d
+ORDER BY d.id
+LIMIT @__p_0 OFFSET @__p_0
+2025-11-28 12:05:11.861 -05:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT d.id AS "Id", d.nombre AS "Nombre"
+FROM departamento AS d
+ORDER BY d.id
+LIMIT @__p_0 OFFSET @__p_0
+2025-11-28 12:05:11.862 -05:00 [DBG] Closing data reader to 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:05:11.862 -05:00 [DBG] A data reader for 'geo_colDB' on server 'tcp://localhost:5432' is being disposed after spending 0ms reading results.
+2025-11-28 12:05:11.862 -05:00 [DBG] Closing connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:05:11.862 -05:00 [DBG] Closed connection to database 'geo_colDB' on server 'tcp://localhost:5432' (0ms).
+2025-11-28 12:05:11.863 -05:00 [INF] Executed endpoint 'HTTP: GET /export/departamentos.csv'
+2025-11-28 12:05:11.863 -05:00 [DBG] Connection id "0HNHEIEJFOMUN" completed keep alive response.
+2025-11-28 12:05:11.864 -05:00 [DBG] 'GeoDBContext' disposed.
+2025-11-28 12:05:11.864 -05:00 [DBG] Disposing connection to database 'geo_colDB' on server 'tcp://localhost:5432'.
+2025-11-28 12:05:11.864 -05:00 [DBG] Disposed connection to database 'geo_colDB' on server 'tcp://localhost:5432' (0ms).
+2025-11-28 12:05:11.864 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5149/export/departamentos.csv - 200 null text/csv; charset=utf-8 77.4432ms
+2025-11-28 12:07:23.585 -05:00 [DBG] Connection id "0HNHEIEJFOMUN" disconnecting.
+2025-11-28 12:07:23.585 -05:00 [DBG] Connection id "0HNHEIEJFOMUN" stopped.
+2025-11-28 12:07:23.586 -05:00 [DBG] Connection id "0HNHEIEJFOMUN" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-11-28 12:19:40.331 -05:00 [INF] Application is shutting down...
+2025-11-28 12:19:40.362 -05:00 [DBG] Hosting stopping
+2025-11-28 12:19:40.407 -05:00 [DBG] Hosting stopped

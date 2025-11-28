@@ -4,6 +4,7 @@ import NotFound from "./Pages/NotFound.tsx";
 import AboutPage from "./Pages/AboutPage.tsx";
 import Header from "./Components/Common/Header.tsx"
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import Descargas from "./Pages/Descargas.tsx";
 
 function App() {
 
@@ -25,7 +26,7 @@ function App() {
             />
 
             <Route path="/sobre" element={<AboutPage />} />
-            <Route path="/about" element={<AboutPage />} />
+            <Route path="/descargas" element={<Descargas />} />
 
             <Route path="*" element={<NotFound />} />
         </Routes>

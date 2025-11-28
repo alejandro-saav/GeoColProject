@@ -4,8 +4,8 @@ export default function AboutPage() {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen p-6">
-            <div className="w-full max-w-4xl mx-auto">
+        <div className="min-h-screen p-6 pt-0">
+            <div className="w-full mx-auto">
                 {/* Main Card */}
                 <div className="bg-[#1a1a2e] rounded-lg shadow-2xl overflow-hidden border border-[#2a2a3e] mb-6">
                     {/* Header */}
@@ -133,13 +133,13 @@ export default function AboutPage() {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6 border-t border-[#2a2a3e]">
                             <button
                                 onClick={() => navigate("/")}
-                                className="px-6 py-3 bg-gradient-to-r from-[#000030] to-[#1a1a3e] text-[#FFFF00] font-semibold rounded-lg border border-[#FFFF00] hover:!bg-[#FFFF00] hover:!text-[#000000] hover:border-[#FFFF00] transition-all duration-300 shadow-lg hover:shadow-[#FFFF00]/50"
+                                className="px-6 py-3 bg-gradient-to-r from-[#000030] to-[#1a1a3e] text-[#FFFF00] font-semibold rounded-lg border border-[#FFFF00] transition-all duration-300 shadow-lg hover:shadow-[#FFFF00]/10 cursor-pointer"
                             >
                                 Comenzar a Explorar
                             </button>
                             <button
                                 onClick={() => navigate(-1)}
-                                className="px-6 py-3 bg-[#1a1a2e] text-[#F8FAFC] font-semibold rounded-lg border border-[#2a2a3e] hover:bg-[#252540] hover:border-[#FFFF00] transition-all duration-300"
+                                className="px-6 py-3 bg-[#1a1a2e] text-[#F8FAFC] font-semibold rounded-lg border border-[#2a2a3e] hover:bg-[#252540] hover:border-[#FFFF00] transition-all duration-300 cursor-pointer"
                             >
                                 Volver
                             </button>

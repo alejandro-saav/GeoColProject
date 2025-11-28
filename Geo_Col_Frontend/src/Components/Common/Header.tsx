@@ -23,7 +23,8 @@ export default function Header() {
                     >
                         Explorar
                     </li>
-                    <li className="text-gray-400 opacity-50">
+                    <li onClick={() => navigate("/descargas")}
+                        className={location.pathname === "/descargas" ? "text-[#FFFF00]" :"text-gray-400"}>
                         Descargas
                     </li>
                     <li 
