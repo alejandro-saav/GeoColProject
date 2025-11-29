@@ -46,9 +46,9 @@ class GeographicApiService {
         return response.json();
     }
     
-    async getDepartamentosExcel(): Promise<Blob | null> {
+    async getExportedData(endpointRelativeUrl: string): Promise<Blob | null> {
         try {
-            const response: Response = await fetch(`${this.baseUrl}/export/departamentos.csv`);
+            const response: Response = await fetch(`${this.baseUrl}/export/${endpointRelativeUrl}`);
             if (!response.ok) throw new Error(response.statusText);
             return response.blob();
         } catch (error) {
